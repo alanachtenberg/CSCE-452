@@ -1,5 +1,7 @@
+import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
+import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
 
@@ -17,7 +19,8 @@ import sun.awt.image.ToolkitImage;
  */
 
 public class MainFrame extends JFrame {
-
+	
+	
 	/**
 	 * @throws HeadlessException
 	 */
@@ -57,11 +60,34 @@ public class MainFrame extends JFrame {
 		// TODO Auto-generated method stub
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {		
-						JFrame menu= new MainFrame("Duct Tape & WD-40");
+						//TODO move main method into its own class
+						MainFrame mainF= new MainFrame("Duct Tape & WD-40");
 						Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();//gets system screen size
-						menu.setSize(screenSize.width/2,screenSize.height/2);//sets the main window to half of the screen size
-						menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//exit program when main window closess
-						menu.setVisible(true);
+						mainF.setSize(screenSize.width/2,screenSize.height/2);//sets the main window to half of the screen size
+						mainF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//exit program when main window closess
+						mainF.setLayout(new GridLayout(1,2));//sets layout to a grid with two columns
+						//use GridLayout to place controls on right side of canvas later
+						//TODO create control class containing all buttons and input boxes etc
+						//then add to main frame
+						mainF.setVisible(true);
+						
+						//TODO create class inherited from canvas to draw all links on.and then add to main frame.
+						//Create and add links to window
+						Link linkOne= new Link(mainF.getWidth()/4,mainF.getHeight(),150,30);
+						linkOne.setTheta(30);//simple test val, set to 0 later
+						mainF.add(linkOne);
+						
+						Link linkTwo= new Link(mainF.getWidth()/4,mainF.getHeight()-150,100,20);
+						linkTwo.setTheta(-30);//in degrees
+						mainF.add(linkTwo);
+						
+						Link linkThree= new Link(mainF.getWidth()/4,mainF.getHeight()-250,75,15);
+						linkThree.setTheta(15);
+						mainF.add(linkThree);
+						
+						
+						
+						
 					}
 				});
 				
