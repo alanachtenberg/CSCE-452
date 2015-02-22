@@ -68,7 +68,6 @@ public class MainFrame extends JFrame {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {		
 						//TODO move main method into its own class

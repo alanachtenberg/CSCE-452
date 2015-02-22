@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -173,7 +174,7 @@ public class PaintPanel extends JPanel implements MouseListener, MouseMotionList
        }
     } // end setUpDrawingGraphics()
     
-	@Override
+	//@Override not an override, is an interface
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
 		// Unnecessary but required by MouseListener and MouseMotionListener interface
@@ -181,7 +182,7 @@ public class PaintPanel extends JPanel implements MouseListener, MouseMotionList
 	}
 
 	//Needed for picking colors
-	@Override
+	//@Override same as before
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		int x = e.getX();   // x-coordinate where the user clicked.
@@ -203,7 +204,7 @@ public class PaintPanel extends JPanel implements MouseListener, MouseMotionList
 
 	
 	
-	@Override
+	//@Override same as before
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
         graphicsForDrawing.dispose();
@@ -212,25 +213,25 @@ public class PaintPanel extends JPanel implements MouseListener, MouseMotionList
 	
 	
 	
-	@Override
+	//@Override same as before
 	public void mouseMoved(MouseEvent e) {
 		// Unnecessary but required by MouseListener and MouseMotionListener interface
 		// Can leave empty unless needed
 	}
 
-	@Override
+	//@Override same as before
 	public void mouseClicked(MouseEvent e) {
 		// Unnecessary but required by MouseListener and MouseMotionListener interface
 		// Can leave empty unless needed
 	}
 
-	@Override
+	//@Override same as before
 	public void mouseEntered(MouseEvent e) {
 		// Unnecessary but required by MouseListener and MouseMotionListener interface
 		// Can leave empty unless needed
 	}
 
-	@Override
+	//@Override same as before
 	public void mouseExited(MouseEvent e) {
 		// Unnecessary but required by MouseListener and MouseMotionListener interface
 		// Can leave empty unless needed
