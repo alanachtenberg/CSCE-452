@@ -82,7 +82,7 @@ public class MainFrame extends JFrame {
 						mainF.initRobotArm();
 						//Testing PaintPanel class here
 						PaintPanel content = new PaintPanel();
-						mainF.setContentPane(content);
+						mainF.add(content);
 						//Unfortunately, I think the paintpanel container covers the ellipses
 						
 						
