@@ -1,14 +1,13 @@
-import java.awt.Canvas;
+
 import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-
-import sun.awt.image.ToolkitImage;
 
 
 
@@ -19,8 +18,13 @@ import sun.awt.image.ToolkitImage;
  */
 
 public class MainFrame extends JFrame {
-	
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public static Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();//gets system screen size;
+	//TODO implement without static
+	private RobotArm arm;
 	/**
 	 * @throws HeadlessException
 	 */
@@ -52,6 +56,13 @@ public class MainFrame extends JFrame {
 		super(title, gc);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void initRobotArm(){
+		arm= new RobotArm(this.getWidth()/2,this.getHeight());
+		arm.setVisible(true);
+		arm.setTheta(0,0,0);
+		this.add(arm);
+	}
 
 	/**
 	 * @param args
@@ -62,7 +73,6 @@ public class MainFrame extends JFrame {
 					public void run() {		
 						//TODO move main method into its own class
 						MainFrame mainF= new MainFrame("Duct Tape & WD-40");
-						Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();//gets system screen size
 						mainF.setSize(screenSize.width/2,screenSize.height/2);//sets the main window to half of the screen size
 						mainF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//exit program when main window closess
 						mainF.setLayout(new GridLayout(1,2));//sets layout to a grid with two columns
@@ -71,26 +81,12 @@ public class MainFrame extends JFrame {
 						//then add to main frame
 						mainF.setVisible(true);
 						
-						//TODO create class inherited from canvas to draw all links on.and then add to main frame.
-						//Create and add links to window
-						Link linkOne= new Link(mainF.getWidth()/4,mainF.getHeight(),150,30);
-						linkOne.setTheta(30);//simple test val, set to 0 later
-						mainF.add(linkOne);
-						
-						Link linkTwo= new Link(mainF.getWidth()/4,mainF.getHeight()-150,100,20);
-						linkTwo.setTheta(-30);//in degrees
-						mainF.add(linkTwo);
-						
-						Link linkThree= new Link(mainF.getWidth()/4,mainF.getHeight()-250,75,15);
-						linkThree.setTheta(15);
-						mainF.add(linkThree);
-						
-						
-						
-						
-					}
-				});
-				
-	}
+						mainF.initRobotArm();
+						//TODO remove later
+						mainF.add(new JButton());
+						//temp control to fill out grid nicely
+				}});
+				}
+
 
 }

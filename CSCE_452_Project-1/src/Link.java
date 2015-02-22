@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import java.awt.geom.*;
 import java.awt.geom.Ellipse2D;
@@ -7,21 +8,24 @@ import javax.swing.JComponent;
 
 
 public class Link extends JComponent{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Shape ellipse;//we use shape, because when we transform Ellipse2D it returns path2D, both inherit from shape
+	private Color color;
 	private Point start;
 	private float theta;
-	private double length,width;
+	private final double length,width;//only set the length and width once
 	
-	public Link() {//default constructor
+	public Link(int l, int w) {
 		ellipse=null;
 		start=null;
-		length=0; width=0;
+		length=l; width=w;
 	}
-	public Link(int x, int y,int l,int w){//useful constuctor
+	public void updateLink(int x, int y, Color c){
 		start= new Point(x, y);
-		length=l;
-		width=w;
-		this.theta=0;
+		color=c;
 	}
 	/*
 	 * paint(Graphics g) is an overidden method of JComponent, it handles the drawing logic when placed on a window
@@ -39,7 +43,7 @@ public class Link extends JComponent{
 		
 		g2D.setStroke(new BasicStroke(2.0f));//set stroke to 2 pixels
 		Paint gradient = new GradientPaint((int)(start.getX()-width),(int)(start.getY()-length),Color.WHITE,
-				(int)(start.getX()+width), (int)(start.getY()+length),Color.RED);
+				(int)(start.getX()+width), (int)(start.getY()+length),color);
 		g2D.setPaint(gradient);
 		g2D.fill(ellipse);//fill elipse with gradient paint
 		g2D.setColor(Color.BLACK);//set color to black for our stroke
