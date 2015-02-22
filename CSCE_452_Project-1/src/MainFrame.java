@@ -80,13 +80,18 @@ public class MainFrame extends JFrame {
 						//TODO create control class containing all buttons and input boxes etc
 						//then add to main frame
 						mainF.setVisible(true);
-						
 						mainF.initRobotArm();
-						//TODO remove later
-						mainF.add(new JButton());
-						//temp control to fill out grid nicely
-				}});
-				}
-
+						//Testing PaintPanel class here
+						PaintPanel content = new PaintPanel();
+						mainF.setContentPane(content);
+						//Unfortunately, I think the paintpanel container covers the ellipses
+						
+						
+						
+						
+					}
+				});
+				
+	}
 
 }
