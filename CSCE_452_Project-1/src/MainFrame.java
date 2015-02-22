@@ -71,6 +71,11 @@ public class MainFrame extends JFrame {
 						//then add to main frame
 						mainF.setVisible(true);
 						
+						//Testing PaintPanel class here
+						PaintPanel content = new PaintPanel();
+						mainF.setContentPane(content);
+						//Unfortunately, I think the paintpanel container covers the ellipses
+						
 						//TODO create class inherited from canvas to draw all links on.and then add to main frame.
 						//Create and add links to window
 						Link linkOne= new Link(mainF.getWidth()/4,mainF.getHeight(),150,30);
