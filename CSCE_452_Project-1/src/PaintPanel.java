@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.event.*;
 import javax.swing.*;
 
@@ -9,6 +8,10 @@ import javax.swing.*;
 //etc. for using this class
 public class PaintPanel extends JPanel {
 	 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JLabel rgbValue = new JLabel(""); // for displaying the rgb value the sliders make
 	JSlider sliderR, sliderG, sliderB;
 	DrawingCanvas canvas = new DrawingCanvas(); //canvas is for showing the sample color
@@ -43,7 +46,11 @@ public class PaintPanel extends JPanel {
 	
 	// Creates a small canvas that shows the RGB color made from the sliders
 	class DrawingCanvas extends Canvas {
-	    Color color;
+	    /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		Color color;
 	    int redValue, greenValue, blueValue;
 
 	    public DrawingCanvas() {

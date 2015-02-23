@@ -1,11 +1,12 @@
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
+import java.awt.Point;
 import java.awt.Toolkit;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -61,6 +62,7 @@ public class MainFrame extends JFrame {
 		arm= new RobotArm(this.getWidth()/2,this.getHeight());
 		arm.setVisible(true);
 		arm.setTheta(0,0,0);
+		arm.setStarts(new Point(0,0), new Point(0,150), new Point(0,250), new Point(0,325));
 		this.add(arm);
 	}
 
@@ -80,6 +82,8 @@ public class MainFrame extends JFrame {
 						//then add to main frame
 						mainF.setVisible(true);
 						mainF.initRobotArm();
+						mainF.arm.setPainterColor(new Color(0,100,100));
+						mainF.arm.paintPoint();//test
 						//Testing PaintPanel class here
 						PaintPanel content = new PaintPanel();
 						mainF.add(content);

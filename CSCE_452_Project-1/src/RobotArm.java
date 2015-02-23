@@ -2,13 +2,30 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.Point;
+import java.awt.geom.Ellipse2D;
+import java.util.Vector;
 
 public class RobotArm extends Canvas {
+	private class ColorPoint extends Point{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		public Color pointColor;
+		
+		public ColorPoint(int x, int y, Color c){
+			super(x,y);
+			pointColor=c;
+		}
+	}
 	private static final long serialVersionUID = 1L;
-	
 	private static final int NUMLINKS=3;
+	private Point painter;//location of painter
+	private static final Vector<ColorPoint> paintVector= new Vector<ColorPoint>();
+	private Color color; //current color of painter
 	private final Link[] links= new Link[NUMLINKS];//constant array, all our robot arms will have 3 links
 	private final Point[] relativeStarts= new Point[NUMLINKS];
 	private final float theta[]= new float[NUMLINKS];//constant array, only array is constant not floats inside
@@ -46,19 +63,41 @@ public class RobotArm extends Canvas {
 		for (int i=0;i<NUMLINKS;++i){
 			links[i].paint(g);//paint link i
 		}
+		//draw painter
+		Graphics2D g2D=(Graphics2D)g;
+		g2D.setColor(Color.BLACK);
+		g2D.draw(new Ellipse2D.Double(origin.getX()-painter.getX()-5, origin.getY()-painter.getY()-5, 10, 10));
+		//draw painted points
+		for(int i=0; i<paintVector.size();++i){
+			ColorPoint point=paintVector.get(i);
+			g2D.setColor(point.pointColor);
+			g2D.fill(new Ellipse2D.Double(origin.getX()-point.getX()-5, 
+					origin.getY()-point.getY()-5, 10, 10));
+		}
+			
 	}
 	public void setTheta(float t1,float t2,float t3){
 		theta[0]=t1;
 		theta[1]=t2;
 		theta[2]=t3;
 	}
-	public void setStarts(Point p1,Point p2, Point p3){
+	public void setStarts(Point p1,Point p2, Point p3, Point paint){
 		relativeStarts[0]=p1;
 		relativeStarts[1]=p2;
 		relativeStarts[2]=p3;
+		painter=paint;
+	}
+	public void setPainterColor(Color c){
+		color=c;
+	}
+	public void paintPoint(){
+		paintVector.add(new ColorPoint(painter.x,painter.y,color));
+	}
+	public void clearPaint(){
+		paintVector.clear();//clear points to paint
 	}
 	public RobotArm(GraphicsConfiguration config) {
 		super(config);
 	}
-
+	
 }
