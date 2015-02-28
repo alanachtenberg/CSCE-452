@@ -47,6 +47,31 @@ public class Controls extends JFrame implements ActionListener{
 		CCW.addActionListener(this);
 		paintCircle.addActionListener(this);
 	}
+	
+	/**
+	 * Helper Function
+	 * Determines which joint has been selected by looping through buttons in ButtonGroup
+	 * Input:	ButtonGroup
+	 * Output: String text of button
+	 */
+	public String getSelectedButtonText(ButtonGroup buttonGroup) {
+        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+
+            if (button.isSelected()) {
+                return button.getText();
+            }
+        }
+
+        return null;
+    }
+	
+	/**
+	 * Implement actionListner
+	 * paintCircle --- paints circle
+	 * cw --- move selected link clockwise
+	 * ccw --- move selected link counterclockwise
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		if(arg0.getSource() == paintCircle){
@@ -82,23 +107,4 @@ public class Controls extends JFrame implements ActionListener{
 		}
 		
 	}
-	
-	
-	/**
-	 * Helper Function
-	 * Determines which joint has been selected by looping through buttons in ButtonGroup
-	 * Input:	ButtonGroup
-	 * Output: String text of button
-	 */
-	public String getSelectedButtonText(ButtonGroup buttonGroup) {
-        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
-            AbstractButton button = buttons.nextElement();
-
-            if (button.isSelected()) {
-                return button.getText();
-            }
-        }
-
-        return null;
-    }
 }
