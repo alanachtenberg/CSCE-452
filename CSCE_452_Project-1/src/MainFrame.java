@@ -93,7 +93,7 @@ public class MainFrame extends JFrame {
 						mainF.initRobotArm();
 						mainF.initControls();
 						mainF.arm.setPainterColor(new Color(0,200,100));
-						mainF.arm.paintPoint();//test
+						//mainF.arm.paintPoint();//test
 						//Testing PaintPanel class here
 						PaintPanel pPanel = new PaintPanel(mainF.arm);
 						mainF.add(pPanel);
