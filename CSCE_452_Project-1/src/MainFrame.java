@@ -86,8 +86,8 @@ public class MainFrame extends JFrame {
 						mainF.arm.setPainterColor(new Color(0,200,100));
 						mainF.arm.paintPoint();//test
 						//Testing PaintPanel class here
-						PaintPanel content = new PaintPanel();
-						mainF.add(content);
+						PaintPanel pPanel = new PaintPanel(mainF.arm);
+						mainF.add(pPanel);
 						//Unfortunately, I think the paintpanel container covers the ellipses
 						
 						

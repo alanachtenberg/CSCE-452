@@ -1,4 +1,5 @@
 import java.awt.*;
+
 import javax.swing.event.*;
 import javax.swing.*;
 
@@ -12,11 +13,13 @@ public class PaintPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private RobotArm arm;
 	JLabel rgbValue = new JLabel(""); // for displaying the rgb value the sliders make
 	JSlider sliderR, sliderG, sliderB;
 	DrawingCanvas canvas = new DrawingCanvas(); //canvas is for showing the sample color
 	
-	public PaintPanel() {
+	public PaintPanel(RobotArm _arm) {
+		arm=_arm;
 	    sliderR = getSlider(0, 255, 0, 50, 5); //Making red slider
 	    sliderG = getSlider(0, 255, 0, 50, 5); //Making green slider
 	    sliderB = getSlider(0, 255, 0, 50, 5); //Making blue slider
@@ -91,7 +94,9 @@ public class PaintPanel extends JPanel {
 	        canvas.blueValue = slider.getValue();
 	        displayRGBColor();
 	      }
+	      arm.setPainterColor(canvas.color);
 	      canvas.repaint();
+	      
 	    }
 	      
 	    // Displays the RGB color
