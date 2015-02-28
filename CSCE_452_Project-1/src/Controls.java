@@ -12,7 +12,7 @@ public class Controls extends JPanel implements ActionListener{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	boolean testing = true;
+	boolean testing = false;
 	
 	private RobotArm arm;
 	
