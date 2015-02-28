@@ -26,6 +26,7 @@ public class MainFrame extends JFrame {
 	public static Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();//gets system screen size;
 	//TODO implement without static
 	private RobotArm arm;
+	private PaintPanel pPanel;
 	/**
 	 * @throws HeadlessException
 	 */
@@ -61,7 +62,7 @@ public class MainFrame extends JFrame {
 	public void initRobotArm(){
 		arm= new RobotArm(this.getWidth()/2,this.getHeight());
 		arm.setVisible(true);
-		arm.setTheta(0,0,0);
+		arm.setTheta(30,45,-15);
 		arm.setStarts(new Point(0,0), new Point(0,150), new Point(0,250), new Point(0,325));
 		this.add(arm);
 	}
@@ -82,7 +83,7 @@ public class MainFrame extends JFrame {
 						//then add to main frame
 						mainF.setVisible(true);
 						mainF.initRobotArm();
-						mainF.arm.setPainterColor(new Color(0,100,100));
+						mainF.arm.setPainterColor(new Color(0,200,100));
 						mainF.arm.paintPoint();//test
 						//Testing PaintPanel class here
 						PaintPanel content = new PaintPanel();

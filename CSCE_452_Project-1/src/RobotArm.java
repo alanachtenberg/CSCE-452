@@ -8,6 +8,8 @@ import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 import java.util.Vector;
 
+import com.sun.corba.se.spi.orbutil.fsm.Action;
+
 public class RobotArm extends Canvas {
 	private class ColorPoint extends Point{
 		/**
@@ -24,6 +26,7 @@ public class RobotArm extends Canvas {
 	private static final long serialVersionUID = 1L;
 	private static final int NUMLINKS=3;
 	private Point painter;//location of painter
+	//container of points to paint
 	private static final Vector<ColorPoint> paintVector= new Vector<ColorPoint>();
 	private Color color; //current color of painter
 	private final Link[] links= new Link[NUMLINKS];//constant array, all our robot arms will have 3 links
@@ -47,12 +50,13 @@ public class RobotArm extends Canvas {
 		links[0].updateLink(origin.x,origin.y, Color.RED);
 		links[0].setTheta(thetaOne);//simple test val, set to 0 later;
 		
-		links[1].updateLink(origin.x,origin.y-150,Color.GREEN);
+		links[1].updateLink(origin.x+relativeStarts[1].x,origin.y-relativeStarts[1].y,Color.GREEN);
 		links[1].setTheta(thetaTwo);//in degrees;
 		
-		links[2].updateLink(origin.x,origin.y-250,Color.BLUE);
+		links[2].updateLink(origin.x+relativeStarts[2].x,origin.y-relativeStarts[2].y,Color.BLUE);
 		links[2].setTheta(thetaThree);
 	}
+	@Override
 	public void paint(Graphics g){
 		origin.setLocation(this.getWidth()/2, this.getHeight());
 		
@@ -70,7 +74,7 @@ public class RobotArm extends Canvas {
 		//draw painted points
 		for(int i=0; i<paintVector.size();++i){
 			ColorPoint point=paintVector.get(i);
-			g2D.setColor(point.pointColor);
+			g2D.setColor(point.pointColor);//get color of point
 			g2D.fill(new Ellipse2D.Double(origin.getX()-point.getX()-5, 
 					origin.getY()-point.getY()-5, 10, 10));
 		}
