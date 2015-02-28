@@ -8,6 +8,7 @@ import java.awt.Point;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 
@@ -26,6 +27,7 @@ public class MainFrame extends JFrame {
 	public static Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();//gets system screen size;
 	//TODO implement without static
 	private RobotArm arm;
+	private JPanel panel;
 	private Controls controls;
 	private PaintPanel pPanel;
 	/**
@@ -48,6 +50,8 @@ public class MainFrame extends JFrame {
 	 */
 	public MainFrame(String title) throws HeadlessException {
 		super(title);
+		panel= new JPanel();
+		panel.setLayout(new GridLayout(2,1));
 		// TODO Auto-generated constructor stub
 	}
 
@@ -62,8 +66,6 @@ public class MainFrame extends JFrame {
 	
 	public void initRobotArm(){
 		arm= new RobotArm(this.getWidth()/2,this.getHeight());
-		arm.setVisible(true);
-		//arm.setStarts(new Point(0,0), new Point(0,150), new Point(0,250), new Point(0,325));
 		arm.setTheta(0, 0, 0);
 		this.add(arm);
 	}
@@ -72,9 +74,18 @@ public class MainFrame extends JFrame {
 	{
 		Controls control = new Controls(arm);
 		control.setVisible(true);
-		this.add(control);
+		panel.add(control);
 	}
-	
+	public void initPaintPanel(){
+		PaintPanel pPanel = new PaintPanel(arm);
+		panel.add(pPanel);
+	}
+	public void initialize(){
+		initRobotArm();//initialize robot arm, added to main frame
+		initControls();// initialize controls, added to jpanel
+		initPaintPanel();//init paint panel, added to jpanel
+		this.add(panel);
+		}
 	/**
 	 * @param args
 	 */
@@ -90,13 +101,9 @@ public class MainFrame extends JFrame {
 						//TODO create control class containing all buttons and input boxes etc
 						//then add to main frame
 						mainF.setVisible(true);
-						mainF.initRobotArm();
-						mainF.initControls();
-						mainF.arm.setPainterColor(new Color(0,200,100));
-						mainF.arm.paintPoint();//test
+						mainF.initialize();
 						//Testing PaintPanel class here
-						PaintPanel pPanel = new PaintPanel(mainF.arm);
-						mainF.add(pPanel);
+						
 
 						//Unfortunately, I think the paintpanel container covers the ellipses
 						

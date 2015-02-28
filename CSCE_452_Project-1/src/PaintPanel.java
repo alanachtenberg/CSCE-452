@@ -14,7 +14,6 @@ public class PaintPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private RobotArm arm;
-	JLabel rgbValue = new JLabel(""); // for displaying the rgb value the sliders make
 	JSlider sliderR, sliderG, sliderB;
 	DrawingCanvas canvas = new DrawingCanvas(); //canvas is for showing the sample color
 	
@@ -31,12 +30,8 @@ public class PaintPanel extends JPanel {
 	    panel.add(sliderG);
 	    panel.add(sliderB);
 	    
-	    panel.add(new JLabel("RGB Value: ", JLabel.LEFT));
 	    
-	    rgbValue.setBackground(Color.white); //for showing the rgb value
-	    rgbValue.setForeground(Color.black); 
-	    rgbValue.setOpaque(true);
-	    panel.add(rgbValue);
+	   
 
 	    add(panel, BorderLayout.SOUTH);
 	    add(canvas);
@@ -102,7 +97,6 @@ public class PaintPanel extends JPanel {
 	    // Displays the RGB color
 	      public void displayRGBColor() {
 	          canvas.setBackgroundColor();
-	          rgbValue.setText(Integer.toString(canvas.color.getRGB() & 0xffffff, 16));
 	        }
 
     
