@@ -7,6 +7,10 @@ import java.awt.GraphicsConfiguration;
 import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 import java.util.Vector;
+import java.lang.Math;
+import Jama.*;
+
+import com.sun.corba.se.spi.orbutil.fsm.Action;
 
 public class RobotArm extends Canvas {
 	private class ColorPoint extends Point{
@@ -24,15 +28,17 @@ public class RobotArm extends Canvas {
 	private static final long serialVersionUID = 1L;
 	private static final int NUMLINKS=3;
 	private Point painter;//location of painter
+	//container of points to paint
 	private static final Vector<ColorPoint> paintVector= new Vector<ColorPoint>();
 	private Color color; //current color of painter
 	private final Link[] links= new Link[NUMLINKS];//constant array, all our robot arms will have 3 links
 	private final Point[] relativeStarts= new Point[NUMLINKS];
-	private final float theta[]= new float[NUMLINKS];//constant array, only array is constant not floats inside
 	private Point origin;//origin point, point of arm base
 	//TODO
 	//Add painter class later
 	//private static final painter;
+
+	private DHParams params;
 	
 	public RobotArm(int w, int h) {
 		super();//call default constructor for Canvas
@@ -42,24 +48,52 @@ public class RobotArm extends Canvas {
 		links[1]= new Link(100,20);
 		links[2]= new Link(75,15);
 		origin= new Point(0,0);
+
+		// Initialize DH Parameters with theta_i = 0. Others will be constant.
+		params = new DHParams(NUMLINKS);
+
+		for (int i = 1; i <= 4; ++i) {
+			params.set("alpha", i-1, 0);
+			params.set("d", i, 0);
+			params.set("theta", i, 0);
+		}
+
+		params.set("a", 0, 0);
+		params.set("a", 1, 150);
+		params.set("a", 2, 100);
+		params.set("a", 3, 75);
 	}
-	private void updateLinks(float thetaOne,float thetaTwo, float thetaThree ){
-		links[0].updateLink(origin.x,origin.y, Color.RED);
-		links[0].setTheta(thetaOne);//simple test val, set to 0 later;
+	private void updateLinks(){
+		links[0].updateLink(origin.x-relativeStarts[0].x,
+					origin.y-relativeStarts[0].y, 
+					Color.RED);
 		
-		links[1].updateLink(origin.x,origin.y-150,Color.GREEN);
-		links[1].setTheta(thetaTwo);//in degrees;
+		links[1].updateLink(origin.x-relativeStarts[1].x,
+					origin.y-relativeStarts[1].y,
+					Color.GREEN);
 		
-		links[2].updateLink(origin.x,origin.y-250,Color.BLUE);
-		links[2].setTheta(thetaThree);
+		links[2].updateLink(origin.x-relativeStarts[2].x,
+					origin.y-relativeStarts[2].y,
+					Color.BLUE);
+
+		// For drawing, we have to add up the thetas to get the relative value to draw.
+		for (int i = 0; i < NUMLINKS; ++i) {
+			double theta = 0;
+			for (int j = 0; j < i+1; ++j) {
+				theta += params.get("theta", j+1);
+			}
+
+			links[i].setTheta(theta);
+		}
 	}
+	@Override
 	public void paint(Graphics g){
 		origin.setLocation(this.getWidth()/2, this.getHeight());
 		
 		//draw base
 		g.fillOval(origin.x-50, origin.y-10, 100, 20);
 		//paint links
-		updateLinks(theta[0],theta[1],theta[2]);
+		updateLinks();
 		for (int i=0;i<NUMLINKS;++i){
 			links[i].paint(g);//paint link i
 		}
@@ -70,18 +104,35 @@ public class RobotArm extends Canvas {
 		//draw painted points
 		for(int i=0; i<paintVector.size();++i){
 			ColorPoint point=paintVector.get(i);
-			g2D.setColor(point.pointColor);
+			g2D.setColor(point.pointColor);//get color of point
 			g2D.fill(new Ellipse2D.Double(origin.getX()-point.getX()-5, 
 					origin.getY()-point.getY()-5, 10, 10));
 		}
 			
 	}
-	public void setTheta(float t1,float t2,float t3){
-		theta[0]=t1;
-		theta[1]=t2;
-		theta[2]=t3;
+
+	// Sets the thetas and adjusts the start points for drawing the links.
+	public void setTheta(double t1, double t2, double t3){
+
+		double[][] o = {{0},{0},{0},{1}};
+		Matrix orig_0 = new Matrix(o);
+
+		Point[] points = new Point[NUMLINKS+1];
+
+		params.set("theta", 1, t1);
+		params.set("theta", 2, t2);
+		params.set("theta", 3, t3);
+
+		for (int i = 0; i < NUMLINKS+1; ++i) {
+			Matrix mp = params.T(i+1, 0).times(orig_0);
+			int x = (int)Math.round(mp.get(1,0));
+			int y = (int)Math.round(mp.get(0,0));
+			points[i] = new Point(x,y);
+		}
+
+		setStarts(points[0], points[1], points[2], points[3]);
 	}
-	public void setStarts(Point p1,Point p2, Point p3, Point paint){
+	private void setStarts(Point p1,Point p2, Point p3, Point paint){
 		relativeStarts[0]=p1;
 		relativeStarts[1]=p2;
 		relativeStarts[2]=p3;

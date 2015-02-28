@@ -27,6 +27,7 @@ public class MainFrame extends JFrame {
 	//TODO implement without static
 	private RobotArm arm;
 	private Controls controls;
+	private PaintPanel pPanel;
 	/**
 	 * @throws HeadlessException
 	 */
@@ -62,8 +63,8 @@ public class MainFrame extends JFrame {
 	public void initRobotArm(){
 		arm= new RobotArm(this.getWidth()/2,this.getHeight());
 		arm.setVisible(true);
-		arm.setTheta(0,0,0);
-		arm.setStarts(new Point(0,0), new Point(0,150), new Point(0,250), new Point(0,325));
+		//arm.setStarts(new Point(0,0), new Point(0,150), new Point(0,250), new Point(0,325));
+		arm.setTheta(-15, 60, -27);
 		this.add(arm);
 	}
 
@@ -91,7 +92,7 @@ public class MainFrame extends JFrame {
 						mainF.setVisible(true);
 						mainF.initRobotArm();
 						mainF.initControls();
-						mainF.arm.setPainterColor(new Color(0,100,100));
+						mainF.arm.setPainterColor(new Color(0,200,100));
 						mainF.arm.paintPoint();//test
 						//Testing PaintPanel class here
 						//PaintPanel content = new PaintPanel();
