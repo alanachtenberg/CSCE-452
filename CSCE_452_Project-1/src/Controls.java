@@ -103,6 +103,7 @@ public class Controls extends JPanel implements ActionListener{
 		if(arg0.getSource() == paintCircle){
 			//Call function to paint circle at whatever location
 			arm.paintPoint();
+			arm.repaint();
 		}
 		else if(arg0.getSource() == CW){
 			if(getSelectedButtonText(joints) == "Link 1"){
