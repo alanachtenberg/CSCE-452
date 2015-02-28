@@ -1,4 +1,11 @@
+/DHParams.class
+/Jama/
+/Link.class
 /MainFrame$1.class
-/RobotArm.class
+/MainFrame.class
 /PaintPanel$DrawingCanvas.class
 /PaintPanel$SliderListener.class
+/PaintPanel.class
+/RobotArm$ColorPoint.class
+/RobotArm.class
+/Controls.class

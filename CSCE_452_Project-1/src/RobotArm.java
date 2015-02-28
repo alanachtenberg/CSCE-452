@@ -10,6 +10,8 @@ import java.util.Vector;
 import java.lang.Math;
 import Jama.*;
 
+import com.sun.corba.se.spi.orbutil.fsm.Action;
+
 public class RobotArm extends Canvas {
 	private class ColorPoint extends Point{
 		/**
@@ -26,6 +28,7 @@ public class RobotArm extends Canvas {
 	private static final long serialVersionUID = 1L;
 	private static final int NUMLINKS=3;
 	private Point painter;//location of painter
+	//container of points to paint
 	private static final Vector<ColorPoint> paintVector= new Vector<ColorPoint>();
 	private Color color; //current color of painter
 	private final Link[] links= new Link[NUMLINKS];//constant array, all our robot arms will have 3 links
@@ -82,6 +85,7 @@ public class RobotArm extends Canvas {
 			links[i].setTheta(theta);
 		}
 	}
+	@Override
 	public void paint(Graphics g){
 		origin.setLocation(this.getWidth()/2, this.getHeight());
 		
@@ -99,7 +103,7 @@ public class RobotArm extends Canvas {
 		//draw painted points
 		for(int i=0; i<paintVector.size();++i){
 			ColorPoint point=paintVector.get(i);
-			g2D.setColor(point.pointColor);
+			g2D.setColor(point.pointColor);//get color of point
 			g2D.fill(new Ellipse2D.Double(origin.getX()-point.getX()-5, 
 					origin.getY()-point.getY()-5, 10, 10));
 		}
