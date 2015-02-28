@@ -26,6 +26,7 @@ public class MainFrame extends JFrame {
 	public static Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();//gets system screen size;
 	//TODO implement without static
 	private RobotArm arm;
+	private Controls controls;
 	private PaintPanel pPanel;
 	/**
 	 * @throws HeadlessException
@@ -67,6 +68,13 @@ public class MainFrame extends JFrame {
 		this.add(arm);
 	}
 
+	public void initControls()
+	{
+		Controls control = new Controls(arm);
+		control.setVisible(true);
+		this.add(control);
+	}
+	
 	/**
 	 * @param args
 	 */
@@ -78,18 +86,18 @@ public class MainFrame extends JFrame {
 						mainF.setSize(screenSize.width/2,screenSize.height/2);//sets the main window to half of the screen size
 						mainF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//exit program when main window closess
 						mainF.setLayout(new GridLayout(1,2));//sets layout to a grid with two columns
-						//use GridLayout to place controls on right side of canvas later
+						//use GridLayout to place controls on right side of canvas later						
 						//TODO create control class containing all buttons and input boxes etc
 						//then add to main frame
 						mainF.setVisible(true);
 						mainF.initRobotArm();
+						mainF.initControls();
 						mainF.arm.setPainterColor(new Color(0,200,100));
 						mainF.arm.paintPoint();//test
 						//Testing PaintPanel class here
 						PaintPanel pPanel = new PaintPanel(mainF.arm);
 						mainF.add(pPanel);
 						//Unfortunately, I think the paintpanel container covers the ellipses
-						
 						
 						
 						

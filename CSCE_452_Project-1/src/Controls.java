@@ -1,15 +1,25 @@
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Enumeration;
 
 import javax.swing.*;
 
-public class Controls extends JFrame implements ActionListener{
+public class Controls extends JPanel implements ActionListener{
 
 	/**
 	 * Implements basic controls of PaintBot
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	boolean testing = true;
+	
+	private RobotArm arm;
+	
+	private static final int NUMLINKS = 3;
+	
+	//Angles of each robot arm link. 0--Link1; 1--Link2; 2--Link3
+	private float theta[] = new float[NUMLINKS];
 	
 	//Choose one of 3 joints on Robot
 	private JRadioButton link1Base;
@@ -26,7 +36,13 @@ public class Controls extends JFrame implements ActionListener{
 	//Press to paint circle
 	private JButton paintCircle;
 	
-	public Controls(){
+	public Controls(RobotArm _arm){
+		arm = _arm;
+		//Set initial angles to 0s
+		theta[0] = 0;
+		theta[1] = 0;
+		theta[2] = 0;
+		
 		link1Base = new JRadioButton("Link 1");
 		link2Base = new JRadioButton("Link 2");
 		link3Base = new JRadioButton("Link 3");
@@ -37,8 +53,8 @@ public class Controls extends JFrame implements ActionListener{
 		joints.add(link2Base);
 		joints.add(link3Base);
 		
-		CW = new JButton("Clockwise Rotation");
-		CCW = new JButton("Counterclockwise Rotation");
+		CW = new JButton("Clockwise");
+		CCW = new JButton("Counterclockwise");
 		
 		paintCircle = new JButton("Paint Circle");
 		
@@ -46,6 +62,16 @@ public class Controls extends JFrame implements ActionListener{
 		CW.addActionListener(this);
 		CCW.addActionListener(this);
 		paintCircle.addActionListener(this);
+		
+		//Display on screen
+		//JPanel panel = new JPanel();
+	    this.setLayout(new GridLayout(2,2));
+		this.add(CW);
+		this.add(CCW);
+		this.add(paintCircle);
+		this.add(link1Base);
+		this.add(link2Base);
+		this.add(link3Base);
 	}
 	
 	/**
@@ -76,33 +102,68 @@ public class Controls extends JFrame implements ActionListener{
 		// TODO Auto-generated method stub
 		if(arg0.getSource() == paintCircle){
 			//Call function to paint circle at whatever location
+			arm.paintPoint();
 		}
 		else if(arg0.getSource() == CW){
 			if(getSelectedButtonText(joints) == "Link 1"){
 				//Move joint 1 clockwise one degree
+				arm.setTheta(theta[0]-1, theta[1], theta[2]);
+				theta[0]--;
+				arm.repaint();
+				if(testing)
+					System.out.println("CW Link1");
 			}
 			else if(getSelectedButtonText(joints) == "Link 2"){
 				//Move joint 2 clockwise one degree
+				arm.setTheta(theta[0], theta[1]-1, theta[2]);
+				theta[1]--;
+				arm.repaint();
+				if(testing)
+					System.out.println("CW Link2");
 			}
 			else if(getSelectedButtonText(joints) == "Link 3"){
 				//Move joint 3 clockwise one degree
+				arm.setTheta(theta[0], theta[1], theta[2]-1);
+				theta[2]--;
+				arm.repaint();
+				if(testing)
+					System.out.println("CW Link3");
 			}
 			else{
 				//Don't do anything
+				if(testing)
+					System.out.println("CW No link selected");
 			}
 		}
 		else if(arg0.getSource() == CCW){
 			if(getSelectedButtonText(joints) == "Link 1"){
 				//Move joint 1 counterclockwise one degree
+				arm.setTheta(theta[0]+1, theta[1], theta[2]);
+				theta[0]++;
+				arm.repaint();
+				if(testing)
+					System.out.println("CCW Link1");
 			}
 			else if(getSelectedButtonText(joints) == "Link 2"){
 				//Move joint 2 counterclockwise one degree
+				arm.setTheta(theta[0], theta[1]+1, theta[2]);
+				theta[1]++;
+				arm.repaint();
+				if(testing)
+					System.out.println("CCW Link2");
 			}
 			else if(getSelectedButtonText(joints) == "Link 3"){
 				//Move joint 3 counterclockwise one degree
+				arm.setTheta(theta[0], theta[1], theta[2]+1);
+				theta[2]++;
+				arm.repaint();
+				if(testing)
+					System.out.println("CCW Link3");
 			}
 			else{
 				//Don't do anything
+				if(testing)
+					System.out.println("CCW no link selected");
 			}
 		}
 		
