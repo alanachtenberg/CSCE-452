@@ -33,7 +33,6 @@ public class RobotArm extends Canvas {
 	private Color color; //current color of painter
 	private final Link[] links= new Link[NUMLINKS];//constant array, all our robot arms will have 3 links
 	private final Point[] relativeStarts= new Point[NUMLINKS];
-	//private final float theta[]= new float[NUMLINKS];//constant array, only array is constant not floats inside
 	private Point origin;//origin point, point of arm base
 	//TODO
 	//Add painter class later
@@ -50,6 +49,7 @@ public class RobotArm extends Canvas {
 		links[2]= new Link(75,15);
 		origin= new Point(0,0);
 
+		// Initialize DH Parameters with theta_i = 0. Others will be constant.
 		params = new DHParams(NUMLINKS);
 
 		for (int i = 1; i <= 4; ++i) {
@@ -76,6 +76,7 @@ public class RobotArm extends Canvas {
 					origin.y-relativeStarts[2].y,
 					Color.BLUE);
 
+		// For drawing, we have to add up the thetas to get the relative value to draw.
 		for (int i = 0; i < NUMLINKS; ++i) {
 			double theta = 0;
 			for (int j = 0; j < i+1; ++j) {
@@ -109,6 +110,8 @@ public class RobotArm extends Canvas {
 		}
 			
 	}
+
+	// Sets the thetas and adjusts the start points for drawing the links.
 	public void setTheta(double t1, double t2, double t3){
 
 		double[][] o = {{0},{0},{0},{1}};
@@ -129,7 +132,7 @@ public class RobotArm extends Canvas {
 
 		setStarts(points[0], points[1], points[2], points[3]);
 	}
-	public void setStarts(Point p1,Point p2, Point p3, Point paint){
+	private void setStarts(Point p1,Point p2, Point p3, Point paint){
 		relativeStarts[0]=p1;
 		relativeStarts[1]=p2;
 		relativeStarts[2]=p3;
