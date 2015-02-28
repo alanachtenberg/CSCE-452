@@ -5,7 +5,7 @@ import java.awt.geom.Ellipse2D;
 
 import javax.swing.JComponent;
 
-
+import java.lang.Math;
 
 public class Link extends JComponent{
 	/**
@@ -15,7 +15,7 @@ public class Link extends JComponent{
 	private Shape ellipse;//we use shape, because when we transform Ellipse2D it returns path2D, both inherit from shape
 	private Color color;
 	private Point start;
-	private float theta;
+	private double theta;
 	private final double length,width;//only set the length and width once
 	
 	public Link(int l, int w) {
@@ -54,8 +54,8 @@ public class Link extends JComponent{
 		return start;
 	}
 
-	public void setTheta(float _theta){
-		theta=_theta/180*(float)Math.PI;//convert theta from degrees to radians for transform later
+	public void setTheta(double _theta){
+		theta = Math.toRadians(_theta);
 	}
 	public void setStart(int x, int y){
 		start= new Point (x,y);
