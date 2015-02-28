@@ -64,7 +64,7 @@ public class MainFrame extends JFrame {
 		arm= new RobotArm(this.getWidth()/2,this.getHeight());
 		arm.setVisible(true);
 		//arm.setStarts(new Point(0,0), new Point(0,150), new Point(0,250), new Point(0,325));
-		arm.setTheta(-15, 60, -27);
+		arm.setTheta(0, 0, 0);
 		this.add(arm);
 	}
 
@@ -95,8 +95,8 @@ public class MainFrame extends JFrame {
 						mainF.arm.setPainterColor(new Color(0,200,100));
 						mainF.arm.paintPoint();//test
 						//Testing PaintPanel class here
-						//PaintPanel content = new PaintPanel();
-						//mainF.add(content);
+						PaintPanel content = new PaintPanel();
+						mainF.add(content);
 						//Unfortunately, I think the paintpanel container covers the ellipses
 						
 						
