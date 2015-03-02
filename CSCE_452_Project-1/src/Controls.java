@@ -31,7 +31,9 @@ public class Controls extends JPanel implements ActionListener{
 	
 	//Each Link can either move 1 degree clockwise or counterclockwise
 	private JButton CW;
+	private ImageIcon cw_image;
 	private JButton CCW;
+	private ImageIcon ccw_image;
 	
 	//Press to paint circle
 	private JButton paintCircle;
@@ -62,6 +64,21 @@ public class Controls extends JPanel implements ActionListener{
 		CW.addActionListener(this);
 		CCW.addActionListener(this);
 		paintCircle.addActionListener(this);
+		
+		//Add images to buttons
+		cw_image = new ImageIcon("src/CW.png");
+		cw_image = new ImageIcon(cw_image.getImage().getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH));
+
+		ccw_image = new ImageIcon("src/CCW.png");
+		ccw_image = new ImageIcon(ccw_image.getImage().getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH));
+
+		CW.setIcon(cw_image);
+		CCW.setIcon(ccw_image);
+		CW.setHorizontalTextPosition(AbstractButton.CENTER);
+		CW.setVerticalTextPosition(AbstractButton.BOTTOM);
+		CCW.setHorizontalTextPosition(AbstractButton.CENTER);
+		CCW.setVerticalTextPosition(AbstractButton.BOTTOM);
+		
 		
 		//Display on screen
 		//JPanel panel = new JPanel();

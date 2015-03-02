@@ -1,12 +1,9 @@
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
-import java.awt.Point;
 import java.awt.Toolkit;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -28,8 +25,7 @@ public class MainFrame extends JFrame {
 	//TODO implement without static
 	private RobotArm arm;
 	private JPanel panel;
-	private Controls controls;
-	private PaintPanel pPanel;
+	
 	/**
 	 * @throws HeadlessException
 	 */
@@ -82,7 +78,8 @@ public class MainFrame extends JFrame {
 	}
 	public void initialize(){
 		initRobotArm();//initialize robot arm, added to main frame
-		initControls();// initialize controls, added to jpanel
+		initControls();//initialize controls added to jpanel
+		// initialize controls, added to jpanel
 		initPaintPanel();//init paint panel, added to jpanel
 		this.add(panel);
 		}
