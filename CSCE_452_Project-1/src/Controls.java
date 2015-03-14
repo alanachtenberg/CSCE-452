@@ -1,3 +1,5 @@
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,6 +37,13 @@ public class Controls extends JPanel implements ActionListener{
 	private JButton CCW;
 	private ImageIcon ccw_image;
 	
+	//World Control Buttons
+	//Each Link can move +X, -X, +Y, or -Y
+	private JButton plusX;
+	private JButton minusX;
+	private JButton plusY;
+	private JButton minusY;
+	
 	//Press to paint circle
 	private JButton paintCircle;
 	
@@ -58,12 +67,23 @@ public class Controls extends JPanel implements ActionListener{
 		CW = new JButton("Clockwise");
 		CCW = new JButton("Counterclockwise");
 		
+		plusX = new JButton("+X");
+		minusX = new JButton("-X");
+		plusY = new JButton("+Y");
+		minusY = new JButton("-Y");
+		
 		paintCircle = new JButton("Paint Circle");
 		
 		//Add actionListners for CW, CCW, & paintCircle buttons
 		CW.addActionListener(this);
 		CCW.addActionListener(this);
 		paintCircle.addActionListener(this);
+		
+		//Add actionListeners for +X, -X, +Y, and -Y buttons
+		plusX.addActionListener(this);
+		minusX.addActionListener(this);
+		plusY.addActionListener(this);
+		minusY.addActionListener(this);
 		
 		//Add images to buttons
 		cw_image = new ImageIcon("src/CW.png");
@@ -82,13 +102,61 @@ public class Controls extends JPanel implements ActionListener{
 		
 		//Display on screen
 		//JPanel panel = new JPanel();
-	    this.setLayout(new GridLayout(2,2));
-		this.add(CW);
-		this.add(CCW);
-		this.add(paintCircle);
-		this.add(link1Base);
-		this.add(link2Base);
-		this.add(link3Base);
+		//this.setLayout(new GridLayout(2,2));
+		
+		//Trying new Layout since GridLayout with the world control buttons doesn't look nice
+	    this.setLayout(new GridBagLayout());
+	    GridBagConstraints c = new GridBagConstraints();
+	    
+	    c.fill = GridBagConstraints.HORIZONTAL;
+	    c.gridx = 0;
+	    c.gridy = 0;
+		this.add(CW, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 0;
+		this.add(CCW, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 3;
+		this.add(paintCircle, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 1;
+		this.add(link1Base, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 1;
+		this.add(link2Base, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 2;
+		c.gridy = 1;
+		this.add(link3Base, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 2;
+		this.add(plusX, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 2;
+		this.add(minusX, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 2;
+		c.gridy = 2;
+		this.add(plusY, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 3;
+		c.gridy = 2;
+		this.add(minusY, c);
 	}
 	
 	/**
