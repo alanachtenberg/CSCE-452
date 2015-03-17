@@ -253,5 +253,99 @@ public class Controls extends JPanel implements ActionListener{
 			}
 		}
 		
+		//World Control Button Actions
+		else if(arg0.getSource() == plusX){
+			if(getSelectedButtonText(joints) == "Link 1"){
+				
+				if(testing)
+					System.out.println("+X Link1");
+			}
+			else if(getSelectedButtonText(joints) == "Link 2"){
+				
+				if(testing)
+					System.out.println("+X Link2");
+			}
+			else if(getSelectedButtonText(joints) == "Link 3"){
+				
+				if(testing)
+					System.out.println("+X Link3");
+			}
+			else{
+				
+				if(testing)
+					System.out.println("+X no link selected");
+			}
+		}
+		
+		
+		else if(arg0.getSource() == minusX){
+			if(getSelectedButtonText(joints) == "Link 1"){
+				
+				if(testing)
+					System.out.println("-X Link1");
+			}
+			else if(getSelectedButtonText(joints) == "Link 2"){
+				
+				if(testing)
+					System.out.println("-X Link2");
+			}
+			else if(getSelectedButtonText(joints) == "Link 3"){
+				
+				if(testing)
+					System.out.println("-X Link3");
+			}
+			else{
+				
+				if(testing)
+					System.out.println("-X no link selected");
+			}
+		}
+		
+		else if(arg0.getSource() == plusY){
+			if(getSelectedButtonText(joints) == "Link 1"){
+				
+				if(testing)
+					System.out.println("+Y Link1");
+			}
+			else if(getSelectedButtonText(joints) == "Link 2"){
+				
+				if(testing)
+					System.out.println("+Y Link2");
+			}
+			else if(getSelectedButtonText(joints) == "Link 3"){
+				
+				if(testing)
+					System.out.println("+Y Link3");
+			}
+			else{
+				
+				if(testing)
+					System.out.println("+Y no link selected");
+			}
+		}
+		
+		else if(arg0.getSource() == minusY){
+			if(getSelectedButtonText(joints) == "Link 1"){
+				
+				if(testing)
+					System.out.println("-Y Link1");
+			}
+			else if(getSelectedButtonText(joints) == "Link 2"){
+				
+				if(testing)
+					System.out.println("-Y Link2");
+			}
+			else if(getSelectedButtonText(joints) == "Link 3"){
+				
+				if(testing)
+					System.out.println("-Y Link3");
+			}
+			else{
+				
+				if(testing)
+					System.out.println("-Y no link selected");
+			}
+		}
+		
 	}
 }
