@@ -78,8 +78,7 @@ public class MainFrame extends JFrame {
 	}
 	public void initialize(){
 		initRobotArm();//initialize robot arm, added to main frame
-		initControls();//initialize controls added to jpanel
-		// initialize controls, added to jpanel
+		initControls();//initialize controls, added to jpanel
 		initPaintPanel();//init paint panel, added to jpanel
 		this.add(panel);
 		}

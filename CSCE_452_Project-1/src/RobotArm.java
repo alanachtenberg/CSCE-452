@@ -5,14 +5,19 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.Point;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.util.Vector;
 import java.lang.Math;
+import java.awt.event.*;
 import Jama.*;
 
 import com.sun.corba.se.spi.orbutil.fsm.Action;
 
-public class RobotArm extends Canvas {
+import javax.swing.event.MouseInputListener;
+
+public class RobotArm extends Canvas{
+
 	private class ColorPoint extends Point{
 		/**
 		 * 
@@ -25,6 +30,7 @@ public class RobotArm extends Canvas {
 			pointColor=c;
 		}
 	}
+
 	private static final long serialVersionUID = 1L;
 	private static final int NUMLINKS=3;
 	private Point painter;//location of painter
@@ -34,20 +40,23 @@ public class RobotArm extends Canvas {
 	private final Link[] links= new Link[NUMLINKS];//constant array, all our robot arms will have 3 links
 	private final Point[] relativeStarts= new Point[NUMLINKS];
 	private Point origin;//origin point, point of arm base
-	//TODO
-	//Add painter class later
-	//private static final painter;
 
 	private DHParams params;
+
+	private MouseListener mListener;
+	private MouseMotionListener mMotionListener;
 	
 	public RobotArm(int w, int h) {
 		super();//call default constructor for Canvas
+		color=Color.BLACK;// color to black
 		this.setSize(new Dimension(w, h));
+		
 		//Construct links
 		links[0]=new Link(150,30);//a new link 150 pixels long and 30 wide
 		links[1]= new Link(100,20);
 		links[2]= new Link(75,15);
 		origin= new Point(0,0);
+		origin.setLocation(this.getWidth()/2, this.getHeight());
 
 		// Initialize DH Parameters with theta_i = 0. Others will be constant.
 		params = new DHParams(NUMLINKS);
@@ -62,6 +71,9 @@ public class RobotArm extends Canvas {
 		params.set("a", 1, 150);
 		params.set("a", 2, 100);
 		params.set("a", 3, 75);
+		
+		EnableMouseInput();
+        
 	}
 	private void updateLinks(){
 		links[0].updateLink(origin.x-relativeStarts[0].x,
@@ -143,12 +155,53 @@ public class RobotArm extends Canvas {
 	}
 	public void paintPoint(){
 		paintVector.add(new ColorPoint(painter.x,painter.y,color));
+		this.repaint();
 	}
 	public void clearPaint(){
 		paintVector.clear();//clear points to paint
 	}
+
 	public RobotArm(GraphicsConfiguration config) {
 		super(config);
 	}
 	
+	public void EnableMouseInput(){
+		this.addMouseListener(mListener=new MouseListener() {
+			public void mouseReleased(MouseEvent e) {
+			}
+			
+			public void mousePressed(MouseEvent e) {
+			}
+			
+			public void mouseExited(MouseEvent e) {
+			}
+			
+			public void mouseEntered(MouseEvent e) {
+			}
+			
+			public void mouseClicked(MouseEvent e) {
+				painter.setLocation(origin.x-e.getX(),origin.y-e.getY());//converts into our coordinate system
+                paintPoint();
+			}
+		});
+		
+		this.addMouseMotionListener(mMotionListener=new MouseMotionListener() {
+			public void mouseMoved(MouseEvent e) {
+				painter.setLocation(origin.x-e.getX(),origin.y-e.getY());
+				repaint();
+			}
+			
+			public void mouseDragged(MouseEvent e) {
+				painter.setLocation(origin.x-e.getX(),origin.y-e.getY());//converts into our coordinate system
+				paintPoint();
+			}
+		});
+	}
+	
+	public void DisableMouseInput(){
+		this.removeMouseListener(mListener);
+		this.removeMouseMotionListener(mMotionListener);
+	}
+
+
 }
