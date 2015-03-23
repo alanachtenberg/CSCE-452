@@ -79,8 +79,7 @@ public class MainFrame extends JFrame {
 	public void initialize(){
 		initRobotArm();//initialize robot arm, added to main frame
 		initControls();//initialize controls added to jpanel
-		// initialize controls, added to jpanel
-		initPaintPanel();//init paint panel, added to jpanel
+		initPaintPanel();//initialize paint panel, added to jpanel
 		this.add(panel);
 		}
 	/**
@@ -95,15 +94,9 @@ public class MainFrame extends JFrame {
 						mainF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//exit program when main window closess
 						mainF.setLayout(new GridLayout(1,2));//sets layout to a grid with two columns
 						//use GridLayout to place controls on right side of canvas later						
-						//TODO create control class containing all buttons and input boxes etc
 						//then add to main frame
 						mainF.setVisible(true);
-						mainF.initialize();
-						//Testing PaintPanel class here
-						
-
-						//Unfortunately, I think the paintpanel container covers the ellipses
-						
+						mainF.initialize();												
 						
 						
 					}
