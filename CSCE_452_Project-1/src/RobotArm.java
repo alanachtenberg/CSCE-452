@@ -159,6 +159,7 @@ public class RobotArm extends Canvas{
 	}
 	public void clearPaint(){
 		paintVector.clear();//clear points to paint
+		this.repaint();
 	}
 
 	public RobotArm(GraphicsConfiguration config) {
