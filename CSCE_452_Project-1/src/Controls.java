@@ -129,61 +129,75 @@ public class Controls extends JPanel implements ActionListener{
 	    c.fill = GridBagConstraints.HORIZONTAL;
 	    c.gridx = 0;
 	    c.gridy = 0;
+	    c.gridwidth = 2;
 		this.add(CW, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 1;
+		c.gridx = 2;
 		c.gridy = 0;
+		c.gridwidth = 3;
 		this.add(CCW, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 3;
+		c.gridwidth = 2;
 		this.add(paintCircle, c);
-		
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 1;
-		c.gridy = 3;
-		this.add(clear, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 2;
 		c.gridy = 3;
+		c.gridwidth = 2;
+		this.add(clear, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 4;
+		c.gridy = 3;
+		c.gridwidth = 2;
 		this.add(mouseinput, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 1;
+		c.gridwidth = 1;
+		c.weighty = 1;
 		this.add(link1Base, c);
-		
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 1;
-		c.gridy = 1;
-		this.add(link2Base, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 2;
 		c.gridy = 1;
+		c.gridwidth = 1;
+		this.add(link2Base, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 4;
+		c.gridy = 1;
+		c.gridwidth = 1;
 		this.add(link3Base, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 2;
+		c.gridwidth = 1;
+		c.weighty = 1;
 		this.add(plusX, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 2;
+		c.gridwidth = 1;
 		this.add(minusX, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 2;
 		c.gridy = 2;
+		c.gridwidth = 1;
 		this.add(plusY, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 2;
+		c.gridwidth = 1;
 		this.add(minusY, c);
 	}
 	
