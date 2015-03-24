@@ -91,7 +91,7 @@ public class MainFrame extends JFrame {
 					public void run() {		
 						//TODO move main method into its own class
 						MainFrame mainF= new MainFrame("Duct Tape & WD-40");
-						mainF.setSize(screenSize.width/2,screenSize.height/2);//sets the main window to half of the screen size
+						mainF.setSize(screenSize.width/2,screenSize.height*2/3);//sets the main window to half of the screen size
 						mainF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//exit program when main window closess
 						mainF.setLayout(new GridLayout(1,2));//sets layout to a grid with two columns
 						//use GridLayout to place controls on right side of canvas later						
