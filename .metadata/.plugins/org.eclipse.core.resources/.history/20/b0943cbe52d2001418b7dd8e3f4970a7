@@ -1,0 +1,359 @@
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.util.Enumeration;
+
+import javax.swing.*;
+
+public class Controls extends JPanel implements ActionListener{
+
+	/**
+	 * Implements basic controls of PaintBot
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	boolean testing = false;
+	
+	private RobotArm arm;
+	
+	private static final int NUMLINKS = 3;
+	
+	//Angles of each robot arm link. 0--Link1; 1--Link2; 2--Link3
+	private float theta[] = new float[NUMLINKS];
+	
+	//Choose one of 3 joints on Robot
+	private JRadioButton link1Base;
+	private JRadioButton link2Base;
+	private JRadioButton link3Base;
+	
+	//ButtonGroup to hold link buttons
+	private ButtonGroup joints;
+	
+	//Each Link can either move 1 degree clockwise or counterclockwise
+	private JButton CW;
+	private ImageIcon cw_image;
+	private JButton CCW;
+	private ImageIcon ccw_image;
+	
+	//World Control Buttons
+	//Each Link can move +X, -X, +Y, or -Y
+	private JButton plusX;
+	private JButton minusX;
+	private JButton plusY;
+	private JButton minusY;
+	
+	//Press to paint circle
+	private JButton paintCircle;
+	
+	//Clear paint button
+	private JButton clear;
+	
+	//Enable/diable mouseinput
+	private JCheckBox mouseinput;
+	
+	//x, y coordinates for arm
+	//private double x, y;
+	private Point position;
+	
+	public Controls(RobotArm _arm){
+		arm = _arm;
+		//Set initial angles to 0s
+		theta[0] = 0;
+		theta[1] = 0;
+		theta[2] = 0;
+		
+		//Set initial x, y coordinates for arm
+		position= new Point(325,0);
+		
+		link1Base = new JRadioButton("Link 1");
+		link2Base = new JRadioButton("Link 2");
+		link3Base = new JRadioButton("Link 3");
+		
+		//Group links together so only one joint can be manipulated at a time
+		joints = new ButtonGroup();
+		joints.add(link1Base);
+		joints.add(link2Base);
+		joints.add(link3Base);
+		
+		CW = new JButton("Clockwise");
+		CCW = new JButton("Counterclockwise");
+		
+		plusX = new JButton("+X");
+		minusX = new JButton("-X");
+		plusY = new JButton("+Y");
+		minusY = new JButton("-Y");
+		
+		paintCircle = new JButton("Paint Circle");
+		clear = new JButton("Clear");
+		
+		mouseinput = new JCheckBox("Enable Mouse Input");
+		mouseinput.setMnemonic(KeyEvent.VK_E);
+		mouseinput.setSelected(true);
+		
+		//Add actionListners for CW, CCW, & paintCircle buttons
+		CW.addActionListener(this);
+		CCW.addActionListener(this);
+		paintCircle.addActionListener(this);
+		
+		//Add actionListeners for +X, -X, +Y, and -Y buttons
+		plusX.addActionListener(this);
+		minusX.addActionListener(this);
+		plusY.addActionListener(this);
+		minusY.addActionListener(this);
+		
+		//Add actionListener for clear button
+		clear.addActionListener(this);
+		
+		//Add actionListener for enable mouse input checkbox
+		mouseinput.addActionListener(this);
+		
+		//Add images to buttons
+		cw_image = new ImageIcon("src/CW.png");
+		cw_image = new ImageIcon(cw_image.getImage().getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH));
+
+		ccw_image = new ImageIcon("src/CCW.png");
+		ccw_image = new ImageIcon(ccw_image.getImage().getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH));
+
+		CW.setIcon(cw_image);
+		CCW.setIcon(ccw_image);
+		CW.setHorizontalTextPosition(AbstractButton.CENTER);
+		CW.setVerticalTextPosition(AbstractButton.BOTTOM);
+		CCW.setHorizontalTextPosition(AbstractButton.CENTER);
+		CCW.setVerticalTextPosition(AbstractButton.BOTTOM);
+		
+		
+		//Display on screen
+		//JPanel panel = new JPanel();
+		//this.setLayout(new GridLayout(2,2));
+		
+		//Trying new Layout since GridLayout with the world control buttons doesn't look nice
+	    this.setLayout(new GridBagLayout());
+	    GridBagConstraints c = new GridBagConstraints();
+	    
+	    c.fill = GridBagConstraints.HORIZONTAL;
+	    c.gridx = 0;
+	    c.gridy = 0;
+	    c.gridwidth = 2;
+		this.add(CW, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 2;
+		c.gridy = 0;
+		c.gridwidth = 3;
+		this.add(CCW, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 3;
+		c.gridwidth = 2;
+		this.add(paintCircle, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 2;
+		c.gridy = 3;
+		c.gridwidth = 2;
+		this.add(clear, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 4;
+		c.gridy = 3;
+		c.gridwidth = 2;
+		this.add(mouseinput, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 1;
+		c.gridwidth = 1;
+		c.weighty = 1;
+		this.add(link1Base, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 2;
+		c.gridy = 1;
+		c.gridwidth = 1;
+		this.add(link2Base, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 4;
+		c.gridy = 1;
+		c.gridwidth = 1;
+		this.add(link3Base, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 2;
+		c.gridwidth = 1;
+		c.weighty = 1;
+		this.add(plusX, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 2;
+		c.gridwidth = 1;
+		this.add(minusX, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 2;
+		c.gridy = 2;
+		c.gridwidth = 1;
+		this.add(plusY, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 3;
+		c.gridy = 2;
+		c.gridwidth = 1;
+		this.add(minusY, c);
+	}
+	
+	/**
+	 * Helper Function
+	 * Determines which joint has been selected by looping through buttons in ButtonGroup
+	 * Input:	ButtonGroup
+	 * Output: String text of button
+	 */
+	public String getSelectedButtonText(ButtonGroup buttonGroup) {
+        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+
+            if (button.isSelected()) {
+                return button.getText();
+            }
+        }
+
+        return null;
+    }
+	
+	/**
+	 * Implement actionListner
+	 * paintCircle --- paints circle
+	 * cw --- move selected link clockwise
+	 * ccw --- move selected link counterclockwise
+	 */
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		if(arg0.getSource() == paintCircle){
+			//Call function to paint circle at whatever location
+			arm.paintPoint();
+			arm.repaint();
+		}
+		else if(arg0.getSource() == CW){
+			theta=arm.getThetas();//get current theta vals so that increment and decrement do not reset
+			if(getSelectedButtonText(joints) == "Link 1"){
+				//Move joint 1 clockwise one degree
+				arm.setTheta(theta[0]-1, theta[1], theta[2]);
+				theta[0]--;
+				arm.repaint();
+				if(testing)
+					System.out.println("CW Link1");
+			}
+			else if(getSelectedButtonText(joints) == "Link 2"){
+				//Move joint 2 clockwise one degree
+				arm.setTheta(theta[0], theta[1]-1, theta[2]);
+				theta[1]--;
+				arm.repaint();
+				if(testing)
+					System.out.println("CW Link2");
+			}
+			else if(getSelectedButtonText(joints) == "Link 3"){
+				//Move joint 3 clockwise one degree
+				arm.setTheta(theta[0], theta[1], theta[2]-1);
+				theta[2]--;
+				arm.repaint();
+				if(testing)
+					System.out.println("CW Link3");
+			}
+			else{
+				//Don't do anything
+				if(testing)
+					System.out.println("CW No link selected");
+			}
+		}
+		else if(arg0.getSource() == CCW){
+			theta=arm.getThetas();//get current theta vals so that increment and decrement do not reset
+			if(getSelectedButtonText(joints) == "Link 1"){
+				//Move joint 1 counterclockwise one degree
+				arm.setTheta(theta[0]+1, theta[1], theta[2]);
+				theta[0]++;
+				arm.repaint();
+				if(testing)
+					System.out.println("CCW Link1");
+			}
+			else if(getSelectedButtonText(joints) == "Link 2"){
+				//Move joint 2 counterclockwise one degree
+				arm.setTheta(theta[0], theta[1]+1, theta[2]);
+				theta[1]++;
+				arm.repaint();
+				if(testing)
+					System.out.println("CCW Link2");
+			}
+			else if(getSelectedButtonText(joints) == "Link 3"){
+				//Move joint 3 counterclockwise one degree
+				arm.setTheta(theta[0], theta[1], theta[2]+1);
+				theta[2]++;
+				arm.repaint();
+				if(testing)
+					System.out.println("CCW Link3");
+			}
+			else{
+				//Don't do anything
+				if(testing)
+					System.out.println("CCW no link selected");
+			}
+		}
+		
+		//Clear Button Action
+		else if(arg0.getSource() == clear) {
+			arm.clearPaint();
+		}
+		
+		//Enable/disable mouseinput
+		else if(arg0.getSource() == mouseinput) {
+			if(mouseinput.isSelected()) {
+				arm.EnableMouseInput();
+			}
+			else {
+				arm.DisableMouseInput();
+			}
+		}
+		
+		//World Control Button Actions
+		else if(arg0.getSource() == plusY){
+			if (Math.sqrt(Math.pow(x+1,2)+Math.pow(y, 2))<326){//out of range
+				arm.movePainterTo(x+1, y);
+				x++;
+				arm.repaint();
+			}
+
+		}
+		
+		
+		else if(arg0.getSource() == minusY){
+			if (Math.sqrt(Math.pow(x-1,2)+Math.pow(y, 2))<326){//out of range
+				arm.movePainterTo(x-1, y);
+				x--;
+				arm.repaint();
+			}
+		}
+		
+		else if(arg0.getSource() == minusX){
+			if (Math.sqrt(Math.pow(x,2)+Math.pow(y+1, 2))<326){//out of range
+				arm.movePainterTo(x, y+1);
+				y++;
+				arm.repaint();
+			}
+		}
+		
+		else if(arg0.getSource() == plusX){
+			if (Math.sqrt(Math.pow(x,2)+Math.pow(y-1, 2))<326){//out of range
+				arm.movePainterTo(x, y-1);
+				y--;
+				arm.repaint();
+			}
+		}
+		
+	}
+}

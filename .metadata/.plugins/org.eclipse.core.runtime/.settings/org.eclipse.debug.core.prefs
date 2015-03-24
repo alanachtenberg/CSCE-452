@@ -1,2 +1,2 @@
 eclipse.preferences.version=1
-prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<watchExpressions>\r\n<expression enabled\="true" text\="origin"/>\r\n<expression enabled\="true" text\="e.getX()"/>\r\n<expression enabled\="true" text\="e.getY()"/>\r\n<expression enabled\="true" text\="e.getX()-origin.x"/>\r\n<expression enabled\="true" text\="-e.getY()+origin.y"/>\r\n</watchExpressions>\r\n
+prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<watchExpressions>\r\n<expression enabled\="true" text\="Math.sqrt(Math.pow(x,2)+Math.pow(y, 2))"/>\r\n</watchExpressions>\r\n
