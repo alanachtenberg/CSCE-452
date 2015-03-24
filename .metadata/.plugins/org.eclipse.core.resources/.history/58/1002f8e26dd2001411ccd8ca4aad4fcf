@@ -72,6 +72,8 @@ public class RobotArm extends Canvas{
 		params.set("a", 1, 150);
 		params.set("a", 2, 100);
 		params.set("a", 3, 75);
+		
+		EnableMouseInput();
         
 	}
 	private void updateLinks(){

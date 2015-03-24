@@ -91,9 +91,9 @@ public class Controls extends JPanel implements ActionListener{
 		paintCircle = new JButton("Paint Circle");
 		clear = new JButton("Clear");
 		
-		mouseinput = new JCheckBox("Enable Mouse");
+		mouseinput = new JCheckBox("Enable Mouse Input");
 		mouseinput.setMnemonic(KeyEvent.VK_E);
-		mouseinput.setSelected(false);
+		mouseinput.setSelected(true);
 		
 		//Add actionListners for CW, CCW, & paintCircle buttons
 		CW.addActionListener(this);
@@ -139,12 +139,14 @@ public class Controls extends JPanel implements ActionListener{
 	    c.gridx = 0;
 	    c.gridy = 0;
 	    c.gridwidth = 3;
+		CW.setMaximumSize(new Dimension(300,100));
 	    this.add(CW, c);
 		
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 3;
 		c.gridy = 0;
 		c.gridwidth = 3;
+		CCW.setMaximumSize(new Dimension(300,100));
 		this.add(CCW, c);
 		
 		c.fill = GridBagConstraints.BOTH;

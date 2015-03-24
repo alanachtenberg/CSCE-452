@@ -93,7 +93,7 @@ public class Controls extends JPanel implements ActionListener{
 		
 		mouseinput = new JCheckBox("Enable Mouse");
 		mouseinput.setMnemonic(KeyEvent.VK_E);
-		mouseinput.setSelected(false);
+		mouseinput.setSelected(true);
 		
 		//Add actionListners for CW, CCW, & paintCircle buttons
 		CW.addActionListener(this);
