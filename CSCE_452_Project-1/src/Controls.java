@@ -1,6 +1,7 @@
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -320,38 +321,44 @@ public class Controls extends JPanel implements ActionListener{
 		}
 		
 		//World Control Button Actions
-		else if(arg0.getSource() == plusY){
-			
+		else{
+			Point position=arm.getPosition();
+			x=position.getY();
+			y=position.getX();
+			if(arg0.getSource() == plusY){
+			if (Math.sqrt(Math.pow(x+1,2)+Math.pow(y, 2))<326){//out of range
 				arm.movePainterTo(x+1, y);
 				x++;
 				arm.repaint();
+			}
 
 		}
 		
 		
 		else if(arg0.getSource() == minusY){
-			
+			if (Math.sqrt(Math.pow(x-1,2)+Math.pow(y, 2))<326){//out of range
 				arm.movePainterTo(x-1, y);
 				x--;
 				arm.repaint();
-				
+			}
 		}
 		
 		else if(arg0.getSource() == minusX){
-			
+			if (Math.sqrt(Math.pow(x,2)+Math.pow(y+1, 2))<326){//out of range
 				arm.movePainterTo(x, y+1);
 				y++;
 				arm.repaint();
-				
+			}
 		}
 		
 		else if(arg0.getSource() == plusX){
-			
+			if (Math.sqrt(Math.pow(x,2)+Math.pow(y-1, 2))<326){//out of range
 				arm.movePainterTo(x, y-1);
 				y--;
 				arm.repaint();
-			
+			}
 		}
 		
+	}
 	}
 }

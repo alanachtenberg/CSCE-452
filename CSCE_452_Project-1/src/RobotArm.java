@@ -248,6 +248,9 @@ public class RobotArm extends Canvas{
 	public float[] getThetas(){
 		return thetas;
 	}
+	public Point getPosition(){
+		return painter;
+	}
 	public void paintPoint(){
 		paintVector.add(new ColorPoint(painter.x,painter.y,color));
 		this.repaint();
