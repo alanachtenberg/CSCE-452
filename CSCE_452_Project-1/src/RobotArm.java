@@ -144,6 +144,80 @@ public class RobotArm extends Canvas{
 
 		setStarts(points[0], points[1], points[2], points[3]);
 	}
+
+    // Performs inverse kinematic calculations based on a geometric solution.
+    // Note that x and y are relative to the frames that were attached.
+    public void movePainterTo(double x, double y) {
+
+        double a1 = params.get("a", 1);
+        double a2 = params.get("a", 2);
+        double a3 = params.get("a", 3);
+        double r = Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
+
+        // If the point is outside the reachable workspace, do nothing.
+        if (r > a1 + a2 + a3 || r < a1 - (a2 + a3)) {
+            return;
+        }
+
+        // Temp values to make code more readable.
+        double tempn = 0, tempd = 0;
+
+        int delta = 0;
+
+        // If we can't reach the point by setting theta1 = atan2(y,x),
+        // we need to adjust theta1 by at least the calculated delta.
+        if (Math.abs(r-a1) < a2 - a3)
+        {
+            tempn = 2*Math.pow(a1,2) - Math.pow(a2 - a3, 2);
+            tempd = 2*a1*a1;
+            delta = (int)Math.ceil(Math.toDegrees(Math.acos(tempn/tempd)));
+        }
+
+        double l = Math.sqrt(Math.pow(r,2) + Math.pow(a1,2) 
+                             - 2*r*a1*Math.cos(Math.toRadians(delta)));
+        
+        tempn = Math.pow(a1,2) + Math.pow(l,2) - Math.pow(r,2);
+        tempd = 2*a1*l;
+        double omega = Math.toDegrees(Math.acos(tempn/tempd));
+
+        tempn = Math.pow(a2,2) + Math.pow(l,2) - Math.pow(a3,2);
+        tempd = 2*a2*l;
+        double alpha = Math.toDegrees(Math.acos(tempn/tempd));
+
+        tempn = Math.pow(a2,2) + Math.pow(a3,2) - Math.pow(l,2);
+        tempd = 2*a2*a3;
+        double beta = Math.toDegrees(Math.acos(tempn/tempd));
+
+        double theta1 = Math.toDegrees(Math.atan2(y,x)) - delta;
+        double theta2, theta3;
+
+        double theta2_1 = 180 - alpha - omega;
+        double theta2_2 = 180 + alpha - omega;
+
+        double theta3_1 = 180 - beta;
+        double theta3_2 = 180 + beta;
+
+        // Determine which new thetas cause the least movement.
+        double theta2_current = params.get("theta", 2);
+        double theta3_current = params.get("theta", 3);
+
+        double sqdiffs1 = Math.pow(theta2_current - theta2_1,2)
+                        + Math.pow(theta3_current - theta3_1,2);
+        double sqdiffs2 = Math.pow(theta2_current - theta2_2,2)
+                        + Math.pow(theta3_current - theta3_2,2);
+
+        if (sqdiffs1 < sqdiffs2) {
+            theta2 = theta2_1;
+            theta3 = theta3_1;
+        } else {
+            theta2 = theta2_2;
+            theta3 = theta3_2;
+        }
+
+        this.setTheta(theta1, theta2, theta3);
+        
+    }
+
 	private void setStarts(Point p1,Point p2, Point p3, Point paint){
 		relativeStarts[0]=p1;
 		relativeStarts[1]=p2;
