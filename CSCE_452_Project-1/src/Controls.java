@@ -3,6 +3,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.Enumeration;
 
 import javax.swing.*;
@@ -47,6 +48,12 @@ public class Controls extends JPanel implements ActionListener{
 	//Press to paint circle
 	private JButton paintCircle;
 	
+	//Clear paint button
+	private JButton clear;
+	
+	//Enable/diable mouseinput
+	private JCheckBox mouseinput;
+	
 	public Controls(RobotArm _arm){
 		arm = _arm;
 		//Set initial angles to 0s
@@ -73,6 +80,11 @@ public class Controls extends JPanel implements ActionListener{
 		minusY = new JButton("-Y");
 		
 		paintCircle = new JButton("Paint Circle");
+		clear = new JButton("Clear");
+		
+		mouseinput = new JCheckBox("Enable Mouse Input");
+		mouseinput.setMnemonic(KeyEvent.VK_E);
+		mouseinput.setSelected(true);
 		
 		//Add actionListners for CW, CCW, & paintCircle buttons
 		CW.addActionListener(this);
@@ -84,6 +96,12 @@ public class Controls extends JPanel implements ActionListener{
 		minusX.addActionListener(this);
 		plusY.addActionListener(this);
 		minusY.addActionListener(this);
+		
+		//Add actionListener for clear button
+		clear.addActionListener(this);
+		
+		//Add actionListener for enable mouse input checkbox
+		mouseinput.addActionListener(this);
 		
 		//Add images to buttons
 		cw_image = new ImageIcon("src/CW.png");
@@ -122,6 +140,16 @@ public class Controls extends JPanel implements ActionListener{
 		c.gridx = 0;
 		c.gridy = 3;
 		this.add(paintCircle, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 3;
+		this.add(clear, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 2;
+		c.gridy = 3;
+		this.add(mouseinput, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
@@ -250,6 +278,21 @@ public class Controls extends JPanel implements ActionListener{
 				//Don't do anything
 				if(testing)
 					System.out.println("CCW no link selected");
+			}
+		}
+		
+		//Clear Button Action
+		else if(arg0.getSource() == clear) {
+			arm.clearPaint();
+		}
+		
+		//Enable/disable mouseinput
+		else if(arg0.getSource() == mouseinput) {
+			if(mouseinput.isSelected()) {
+				arm.EnableMouseInput();
+			}
+			else {
+				arm.DisableMouseInput();
 			}
 		}
 		
