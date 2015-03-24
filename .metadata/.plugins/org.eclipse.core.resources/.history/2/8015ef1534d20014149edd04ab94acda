@@ -268,19 +268,21 @@ public class RobotArm extends Canvas{
 			}
 			
 			public void mouseClicked(MouseEvent e) {
-				movePainterTo(origin.y-e.getY(),origin.x-e.getX());//reversed parameters for our user orientation to match frame attacment
+				painter.setLocation(origin.x-e.getX(),origin.y-e.getY());//converts into our coordinate system
                 paintPoint();
 			}
 		});
 		
 		this.addMouseMotionListener(mMotionListener=new MouseMotionListener() {
 			public void mouseMoved(MouseEvent e) {
-				movePainterTo(origin.y-e.getY(),origin.x-e.getX());//reversed parameters for our user orientation to match frame attacment
+				movePainterTo(origin.x-e.getX(),origin.y-e.getY());
+				//painter.setLocation(origin.x-e.getX(),origin.y-e.getY());
 				repaint();
 			}
 			
 			public void mouseDragged(MouseEvent e) {
-				movePainterTo(origin.y-e.getY(),origin.x-e.getX());//reversed parameters for our user orientation to match frame attacment
+				movePainterTo(e.getY(),e.getX());
+				//painter.setLocation(origin.x-e.getX(),origin.y-e.getY());//converts into our coordinate system
 				paintPoint();
 			}
 		});
