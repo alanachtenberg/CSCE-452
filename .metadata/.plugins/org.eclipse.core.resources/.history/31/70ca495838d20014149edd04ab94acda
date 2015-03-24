@@ -39,7 +39,7 @@ public class RobotArm extends Canvas{
 	private Color color; //current color of painter
 	private final Link[] links= new Link[NUMLINKS];//constant array, all our robot arms will have 3 links
 	private final Point[] relativeStarts= new Point[NUMLINKS];//begining of links
-	private final float[] thetas= new float[NUMLINKS];
+	private final Double[] thetas= new Double[NUMLINKS];
 	private Point origin;//origin point, point of arm base in absolute coordinates
 
 	private DHParams params;
@@ -125,7 +125,7 @@ public class RobotArm extends Canvas{
 	}
 
 	// Sets the thetas and adjusts the start points for drawing the links.
-	public void setTheta(float t1, float t2, float t3){
+	public void setTheta(double t1, double t2, double t3){
 
 		thetas[0]=t1;//set thetas in local variable
 		thetas[1]=t2;//will allow us to request what the current thetas are
@@ -232,7 +232,7 @@ public class RobotArm extends Canvas{
             theta3 = theta3_2;
         }
 
-        this.setTheta((float)theta1, (float)theta2, (float)theta3);
+        this.setTheta(theta1, theta2, theta3);
         
     }
 
@@ -245,7 +245,7 @@ public class RobotArm extends Canvas{
 	public void setPainterColor(Color c){
 		color=c;
 	}
-	public float[] getThetas(){
+	public Double[] getThetas(){
 		return thetas;
 	}
 	public void paintPoint(){

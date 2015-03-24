@@ -233,7 +233,6 @@ public class Controls extends JPanel implements ActionListener{
 			arm.repaint();
 		}
 		else if(arg0.getSource() == CW){
-			theta=arm.getThetas();//get current theta vals so that increment and decrement do not reset
 			if(getSelectedButtonText(joints) == "Link 1"){
 				//Move joint 1 clockwise one degree
 				arm.setTheta(theta[0]-1, theta[1], theta[2]);
@@ -265,7 +264,6 @@ public class Controls extends JPanel implements ActionListener{
 			}
 		}
 		else if(arg0.getSource() == CCW){
-			theta=arm.getThetas();//get current theta vals so that increment and decrement do not reset
 			if(getSelectedButtonText(joints) == "Link 1"){
 				//Move joint 1 counterclockwise one degree
 				arm.setTheta(theta[0]+1, theta[1], theta[2]);
