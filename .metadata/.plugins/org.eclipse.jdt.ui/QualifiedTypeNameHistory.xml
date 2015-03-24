@@ -3,4 +3,5 @@
 <fullyQualifiedTypeName name="java.awt.event.MouseListener"/>
 <fullyQualifiedTypeName name="java.awt.event.MouseMotionListener"/>
 <fullyQualifiedTypeName name="java.awt.Point"/>
+<fullyQualifiedTypeName name="java.awt.Dimension"/>
 </qualifiedTypeNameHistroy>

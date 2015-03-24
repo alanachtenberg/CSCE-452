@@ -1,3 +1,4 @@
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -80,7 +81,7 @@ public class Controls extends JPanel implements ActionListener{
 		joints.add(link3Base);
 		
 		CW = new JButton("Clockwise");
-		CCW = new JButton("Counterclockwise");
+		CCW = new JButton("CounterCW");
 		
 		plusX = new JButton("+X");
 		minusX = new JButton("-X");
@@ -137,13 +138,15 @@ public class Controls extends JPanel implements ActionListener{
 	    c.fill = GridBagConstraints.HORIZONTAL;
 	    c.gridx = 0;
 	    c.gridy = 0;
-	    c.gridwidth = 2;
-		this.add(CW, c);
+	    c.gridwidth = 3;
+		CW.setMaximumSize(new Dimension(300,100));
+	    this.add(CW, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 2;
+		c.gridx = 3;
 		c.gridy = 0;
 		c.gridwidth = 3;
+		CCW.setMaximumSize(new Dimension(300,100));
 		this.add(CCW, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -164,48 +167,52 @@ public class Controls extends JPanel implements ActionListener{
 		c.gridwidth = 2;
 		this.add(mouseinput, c);
 		
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
 		c.gridy = 1;
-		c.gridwidth = 1;
+		c.gridwidth = 2;
 		c.weighty = 1;
 		this.add(link1Base, c);
 		
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 2;
 		c.gridy = 1;
-		c.gridwidth = 1;
+		c.gridwidth = 2;
 		this.add(link2Base, c);
 		
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 4;
 		c.gridy = 1;
-		c.gridwidth = 1;
+		c.gridwidth = 2;
 		this.add(link3Base, c);
 		
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
 		c.gridy = 2;
 		c.gridwidth = 1;
 		c.weighty = 1;
+		plusX.setMinimumSize(new Dimension(50,50));
 		this.add(plusX, c);
 		
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 1;
 		c.gridy = 2;
 		c.gridwidth = 1;
+		minusX.setMinimumSize(new Dimension(50,50));
 		this.add(minusX, c);
 		
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 2;
 		c.gridy = 2;
 		c.gridwidth = 1;
+		plusY.setMinimumSize(new Dimension(50,50));
 		this.add(plusY, c);
 		
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 3;
 		c.gridy = 2;
 		c.gridwidth = 1;
+		minusY.setMinimumSize(new Dimension(50,50));
 		this.add(minusY, c);
 	}
 	

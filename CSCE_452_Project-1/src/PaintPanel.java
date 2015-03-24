@@ -20,6 +20,7 @@ public class PaintPanel extends JPanel {
 	public PaintPanel(RobotArm _arm) {
 		arm=_arm;
 	    sliderR = getSlider(0, 255, 0, 50, 5); //Making red slider
+	    sliderR.setValue(90);//set initial color to maroon-ish
 	    sliderG = getSlider(0, 255, 0, 50, 5); //Making green slider
 	    sliderB = getSlider(0, 255, 0, 50, 5); //Making blue slider
 	 
@@ -53,7 +54,7 @@ public class PaintPanel extends JPanel {
 
 	    public DrawingCanvas() {
 	      setSize(75, 75);
-	      color = new Color(0, 0, 0);
+	      color = new Color(66, 0, 0);
 	      setBackgroundColor();
 	    }
 

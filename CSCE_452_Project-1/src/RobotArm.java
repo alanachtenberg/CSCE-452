@@ -161,7 +161,8 @@ public class RobotArm extends Canvas{
 
         // If the point is outside the reachable workspace, do nothing.
         if (r > a1 + a2 + a3 || r < a1 - (a2 + a3)) {
-            return;
+        	 this.setTheta((float)Math.toDegrees(Math.atan2(y,x)), 0f, 0f);
+        	 return;
         }
 
         // Temp values to make code more readable.
