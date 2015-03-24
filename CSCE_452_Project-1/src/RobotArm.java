@@ -179,14 +179,27 @@ public class RobotArm extends Canvas{
         tempn = Math.pow(a1,2) + Math.pow(l,2) - Math.pow(r,2);
         tempd = 2*a1*l;
         double omega = Math.toDegrees(Math.acos(tempn/tempd));
+        
+        // Sometimes the answer is NaN because of rounding error.
+        if (Double.isNaN(omega)) {
+            omega = Math.toDegrees(Math.acos(Math.round(tempn/tempd)));
+        }
 
         tempn = Math.pow(a2,2) + Math.pow(l,2) - Math.pow(a3,2);
         tempd = 2*a2*l;
         double alpha = Math.toDegrees(Math.acos(tempn/tempd));
 
+        if (Double.isNaN(alpha)) {
+            alpha = Math.toDegrees(Math.acos(Math.round(tempn/tempd)));
+        }
+
         tempn = Math.pow(a2,2) + Math.pow(a3,2) - Math.pow(l,2);
         tempd = 2*a2*a3;
         double beta = Math.toDegrees(Math.acos(tempn/tempd));
+
+        if (Double.isNaN(beta)) {
+            beta = Math.toDegrees(Math.acos(Math.round(tempn/tempd)));
+        }
 
         double theta1 = Math.toDegrees(Math.atan2(y,x)) - delta;
         double theta2, theta3;
