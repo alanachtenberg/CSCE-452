@@ -40,7 +40,9 @@ public class ClientThread implements Runnable{
 								Main.DELAY_ENABLED=false;
 							else if (args[0].equals("ENABLE DELAY"))
 								Main.DELAY_ENABLED=true;
-							else if (Integer.parseInt(args[0])>0)
+							else if (args[0].equals("CLEAR"))
+								arm.clearPaint();
+							else
 								arm.setPainterColor(new Color(Integer.parseInt(args[0])));
 						}
 						else if(numParams==3){//world control

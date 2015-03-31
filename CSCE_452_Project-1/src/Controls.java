@@ -330,6 +330,7 @@ public class Controls extends JPanel implements ActionListener{
 		
 		//Clear Button Action
 		else if(arg0.getSource() == clear) {
+			Main.CLIENT.sendCommand("CLEAR");
 			arm.clearPaint();
 		}
 		
