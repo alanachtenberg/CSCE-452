@@ -3,8 +3,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
-import sun.misc.Queue;
 
 
 public class ClientThread implements Runnable{
@@ -20,13 +20,12 @@ public class ClientThread implements Runnable{
 	
 	private class Consumer implements Runnable{
 		public void run(){
-			try{
 				String[] args;
 				while(true){
 					if(!buffer.isEmpty()){ //buffer not empty	
 						QueueItem item;
 						synchronized (buffer) {							
-							item=buffer.dequeue();
+							item=buffer.poll();
 						}
 						long currTime= System.currentTimeMillis();
 						while(currTime-item.time<2000 && Main.DELAY_ENABLED)//less than two seconds
@@ -54,9 +53,6 @@ public class ClientThread implements Runnable{
 			        		 assert(false);
 					}	
 				}
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 			
@@ -68,14 +64,14 @@ public class ClientThread implements Runnable{
 	
 	private RobotArm arm;
 	
-	private Queue<QueueItem> buffer;
+	private ConcurrentLinkedQueue<QueueItem> buffer;
 	
 	
 	
 	ClientThread(Socket client, RobotArm robotArm){
 		sock=client;	
 		arm=robotArm;
-		buffer= new Queue<QueueItem>();
+		buffer= new ConcurrentLinkedQueue<QueueItem>();
 	}
 	
 	
@@ -96,7 +92,7 @@ public class ClientThread implements Runnable{
         	 }
         	 long time=System.currentTimeMillis();//current time in milliseconds
         	 synchronized (buffer) {		
-        		 buffer.enqueue(new QueueItem(message, time));
+        		 buffer.add(new QueueItem(message, time));
         	 }
          }
       
