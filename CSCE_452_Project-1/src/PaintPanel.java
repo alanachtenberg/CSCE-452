@@ -91,6 +91,8 @@ public class PaintPanel extends JPanel {
 	        displayRGBColor();
 	      }
 	      arm.setPainterColor(canvas.color);
+	      int m=canvas.color.getRGB();
+	      Main.CLIENT.sendCommand(Integer.toString(m));
 	      canvas.repaint();
 	      
 	    }

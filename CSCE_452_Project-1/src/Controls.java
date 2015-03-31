@@ -226,8 +226,8 @@ public class Controls extends JPanel implements ActionListener{
 		this.add(minusY, c);
 		
 		c.fill = GridBagConstraints.BOTH;
-		c.gridx = 0;
-		c.gridy = 4;
+		c.gridx = 5;
+		c.gridy = 2;
 		c.gridwidth = 2;
 		this.add(delayMode, c);
 	}
@@ -345,10 +345,10 @@ public class Controls extends JPanel implements ActionListener{
 		
 		else if(arg0.getSource() == delayMode) {
 			if(delayMode.isSelected()) {
-				delay = true;
+				Main.CLIENT.sendCommand("ENABLE DELAY");
 			}
 			else {
-				delay = false;
+				Main.CLIENT.sendCommand("DISABLE DELAY");
 			}
 		}
 		

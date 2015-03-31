@@ -45,6 +45,9 @@ public class Client {
 			out.println(m);
 			
 	}
+	public void sendCommand(String s){
+		out.println(s);
+	}
 	public void SendParams(int y,int x,Boolean P){
 		//construct param string
 		String m=Integer.toString(y)+","+Integer.toString(x)+",";

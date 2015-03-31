@@ -27,6 +27,7 @@ public class Server implements Runnable{
         	arm=robotArm;
             portNum=port;
             localHost=(Inet4Address)Inet4Address.getLocalHost();
+            System.out.println(localHost);
             serverSocket = new ServerSocket(portNum);//create a socket listening on port num
         }
         catch(Exception e){

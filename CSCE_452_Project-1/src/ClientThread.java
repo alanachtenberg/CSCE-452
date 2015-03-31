@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -34,14 +35,21 @@ public class ClientThread implements Runnable{
 						args=item.mesg.split(",");
 						int numParams=args.length;
 		        	
-			        	 if(numParams==3){//world control
+						if (numParams==1){
+							if (args[0].equals("DISABLE DELAY"))
+								Main.DELAY_ENABLED=false;
+							else if (args[0].equals("ENABLE DELAY"))
+								Main.DELAY_ENABLED=true;
+							else if (Integer.parseInt(args[0])>0)
+								arm.setPainterColor(new Color(Integer.parseInt(args[0])));
+						}
+						else if(numParams==3){//world control
 			        		arm.movePainterTo(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
 			        		if (args[2].equals("T"))
 			        			arm.paintPoint();
 			        		out.println("OK");//respond to client
 			        	 }
 			        	 else if(numParams==4){//joint control
-			        		 //TODO add thetas
 			        		 arm.setTheta(Float.parseFloat(args[0]), Float.parseFloat(args[1]), Float.parseFloat(args[2]));
 			        		 if (args[3].equals("T"))
 			         			arm.paintPoint();
