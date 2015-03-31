@@ -1,12 +1,9 @@
 
-import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
-import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 
 
@@ -16,13 +13,11 @@ import javax.swing.SwingUtilities;
  *MainFrame Class will contain main function for project and acts as application window
  */
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements Runnable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();//gets system screen size;
-	//TODO implement without static
 	private RobotArm arm;
 	private JPanel panel;
 	
@@ -77,32 +72,35 @@ public class MainFrame extends JFrame {
 		panel.add(pPanel);
 	}
 	public void initialize(){
-		initRobotArm();//initialize robot arm, added to main frame
-
-		initControls();//initialize controls, added to jpanel
-		initPaintPanel();//init paint panel, added to jpanel
-		this.add(panel);
+		if (Main.CLIENT_MODE){
+			Main.CLIENT= new Client(Main.HOST,Main.PORT_NUM);//init client socket
+			initRobotArm();//initialize robot arm, added to main frame
+			initControls();//initialize controls, added to jpanel
+			initPaintPanel();//init paint panel, added to jpanel
+			this.add(panel);
 		}
+		else
+		{
+			initRobotArm();
+			Thread serverThread= new Thread(new Server(Main.PORT_NUM,arm));
+			serverThread.start();//init server socket
+		}
+	}
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
-				SwingUtilities.invokeLater(new Runnable() {
-					public void run() {		
+	public void run() {		
 						//TODO move main method into its own class
 						MainFrame mainF= new MainFrame("Duct Tape & WD-40");
-						mainF.setSize(screenSize.width/2,screenSize.height*2/3);//sets the main window to half of the screen size
+						mainF.setSize(Main.screenSize.width/2,Main.screenSize.height*2/3);//sets the main window to half of the screen size
 						mainF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//exit program when main window closess
 						mainF.setLayout(new GridLayout(1,2));//sets layout to a grid with two columns
 						//use GridLayout to place controls on right side of canvas later						
 						//then add to main frame
 						mainF.setVisible(true);
 						mainF.initialize();												
-						
-						
-					}
-				});
-				
+	
 	}
-
+				
 }
+

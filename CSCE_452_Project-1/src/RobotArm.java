@@ -146,6 +146,11 @@ public class RobotArm extends Canvas{
 		}
 
 		setStarts(points[0], points[1], points[2], points[3]);
+		if (Main.CLIENT_MODE){
+			synchronized(Main.CLIENT){
+				Main.CLIENT.SendParams(t1, t2, t3, false);//false means do not paint
+			}
+		}
 	}
 
     // Performs inverse kinematic calculations based on a geometric solution.
@@ -232,7 +237,7 @@ public class RobotArm extends Canvas{
         }
 
         this.setTheta((float)theta1, (float)theta2, (float)theta3);
-        
+        this.repaint();
     }
 
 	private void setStarts(Point p1,Point p2, Point p3, Point paint){
@@ -251,6 +256,9 @@ public class RobotArm extends Canvas{
 		return painter;
 	}
 	public void paintPoint(){
+		if (Main.CLIENT_MODE){
+        	Main.CLIENT.SendParams(thetas[0], thetas[1], thetas[2], true);//false means do not paint
+		}
 		paintVector.add(new ColorPoint(painter.x,painter.y,color));
 		this.repaint();
 	}
@@ -280,13 +288,14 @@ public class RobotArm extends Canvas{
 			public void mouseClicked(MouseEvent e) {
 				movePainterTo(origin.y-e.getY(),origin.x-e.getX());//reversed parameters for our user orientation to match frame attacment
                 paintPoint();
+                //if (Main.CLIENT_MODE==true)
+                	
 			}
 		});
 		
 		this.addMouseMotionListener(mMotionListener=new MouseMotionListener() {
 			public void mouseMoved(MouseEvent e) {
 				movePainterTo(origin.y-e.getY(),origin.x-e.getX());//reversed parameters for our user orientation to match frame attacment
-				repaint();
 			}
 			
 			public void mouseDragged(MouseEvent e) {
