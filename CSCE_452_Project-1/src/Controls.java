@@ -53,11 +53,17 @@ public class Controls extends JPanel implements ActionListener{
 	//Clear paint button
 	private JButton clear;
 	
-	//Enable/diable mouseinput
+	//Enable/disable mouseinput
 	private JCheckBox mouseinput;
+	
+	//Enable/disable delay mode
+	private JCheckBox delayMode;
 	
 	//x, y coordinates for arm
 	private double x, y;
+	
+	//Bool for delay mode
+	private boolean delay;
 	
 	public Controls(RobotArm _arm){
 		arm = _arm;
@@ -95,6 +101,9 @@ public class Controls extends JPanel implements ActionListener{
 		mouseinput.setMnemonic(KeyEvent.VK_E);
 		mouseinput.setSelected(false);
 		
+		delayMode = new JCheckBox("Enable Delay");
+		mouseinput.setSelected(false);
+		
 		//Add actionListners for CW, CCW, & paintCircle buttons
 		CW.addActionListener(this);
 		CCW.addActionListener(this);
@@ -111,6 +120,9 @@ public class Controls extends JPanel implements ActionListener{
 		
 		//Add actionListener for enable mouse input checkbox
 		mouseinput.addActionListener(this);
+		
+		//Add actionListener for enable delay mode checkbox
+		delayMode.addActionListener(this);
 		
 		//Add images to buttons
 		cw_image = new ImageIcon("src/CW.png");
@@ -212,6 +224,12 @@ public class Controls extends JPanel implements ActionListener{
 		c.gridwidth = 1;
 		minusY.setMinimumSize(new Dimension(50,50));
 		this.add(minusY, c);
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.gridx = 0;
+		c.gridy = 4;
+		c.gridwidth = 2;
+		this.add(delayMode, c);
 	}
 	
 	/**
@@ -322,6 +340,15 @@ public class Controls extends JPanel implements ActionListener{
 			}
 			else {
 				arm.DisableMouseInput();
+			}
+		}
+		
+		else if(arg0.getSource() == delayMode) {
+			if(delayMode.isSelected()) {
+				delay = true;
+			}
+			else {
+				delay = false;
 			}
 		}
 		
