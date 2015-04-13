@@ -1,2 +1,18 @@
 *.tree
 .metadata/.plugins/org.eclipse.core.resources/.projects/CSCE_452_Project-1/org.eclipse.jdt.core/state.dat
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
