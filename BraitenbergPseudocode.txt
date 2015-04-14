@@ -1,0 +1,43 @@
+The following is pseduocode for the Braitenberg Vehicle class.
+=======================================================================
+
+Robot := (scale,R(X,Y),theta,k11,k12,k21,k22), 
+    where R(X,Y) is the center of the drive axle.
+
+Robot addiionally has the following properties:
+    Width <- the distance from (X,Y) to the center of a wheel.
+    S1(X,Y) <- the (X,Y) position of sensor 1 (leftmost).
+    S2(X,Y) <- the (X,Y) position of sensor 2 (rightmost).
+
+function WheelSpeeds(robot):
+    returns: a tuple (w1,w2) indicating wheel speeds for robot.
+
+    s1, s2 <- 0
+    for each light source ls in environment:
+        s1 <- s1 + GetLightIntensityAtPoint(ls,robot.S1(X,Y))
+        s2 <- s2 + GetLightIntensityAtPoint(ls,robot.S2(X,Y))
+    w1 <- robot.k11*s1 + robot.k12*s2
+    w2 <- robot.k21*s1 + robot.k22*s2
+    return (w1,w2)
+
+function UpdatePosition(robot,w1,w2,dt):
+    returns:
+
+    f <- max(w1,w2)
+    s <- min(w1,w2)
+
+    r <- 2*robot.Width * (f/(f-s))
+    a <- f*dt
+
+    if (f = w1) then
+        rdx <- (r-robot.Width)*cos(robot.theta) * -1
+        rdy <- (r-robot.Width)*sin(robot.theta)
+        dtheta <- a/r * -1
+        
+    else
+        rdx <- (r-robot.Width)*cos(robot.theta)
+        rdy <- (r-robot.Width)*sin(robot.theta) * -1
+        dtheta <- a/r
+
+    robot.R(X,Y) <- RotateAbout(R(X,Y) + (rdx,rdy),dtheta)
+    robot.theta <- robot.theta + dtheta
