@@ -1,43 +1,65 @@
 The following is pseduocode for the Braitenberg Vehicle class.
 =======================================================================
 
-Robot := (scale,R(X,Y),theta,k11,k12,k21,k22), 
-    where R(X,Y) is the center of the drive axle.
+Robot := (scale,P,theta,k11,k12,k21,k22), 
+    where P is the tuple (X,Y) indicating the center of the drive axle.
 
 Robot addiionally has the following properties:
     Width <- the distance from (X,Y) to the center of a wheel.
-    S1(X,Y) <- the (X,Y) position of sensor 1 (leftmost).
-    S2(X,Y) <- the (X,Y) position of sensor 2 (rightmost).
+    S1 <- the (X,Y) position of sensor 1 (leftmost).
+    S2 <- the (X,Y) position of sensor 2 (rightmost).
 
 function WheelSpeeds(robot):
     returns: a tuple (w1,w2) indicating wheel speeds for robot.
 
     s1, s2 <- 0
     for each light source ls in environment:
-        s1 <- s1 + GetLightIntensityAtPoint(ls,robot.S1(X,Y))
-        s2 <- s2 + GetLightIntensityAtPoint(ls,robot.S2(X,Y))
+        s1 <- s1 + GetLightIntensityAtPoint(ls,GetProp(robot,S1))
+        s2 <- s2 + GetLightIntensityAtPoint(ls,GetProp(robot,S2))
     w1 <- robot.k11*s1 + robot.k12*s2
     w2 <- robot.k21*s1 + robot.k22*s2
     return (w1,w2)
 
 function UpdatePosition(robot,w1,w2,dt):
-    returns:
+    returns: a tuple ((X,Y), theta) indicating the 
+        new position and orientation of the robot.
+        
+    width <- GetProp(robot, Width)
+    theta <- GetParam(robot, theta)
+    P <- GetParam(robot, P)
 
     f <- max(w1,w2)
     s <- min(w1,w2)
 
-    r <- 2*robot.Width * (f/(f-s))
+    r <- 2*width * (f/(f-s))
     a <- f*dt
 
     if (f = w1) then
-        rdx <- (r-robot.Width)*cos(robot.theta) * -1
-        rdy <- (r-robot.Width)*sin(robot.theta)
+        rdx <- (r-width)*cos(theta) * -1
+        rdy <- (r-width)*sin(theta)
         dtheta <- a/r * -1
         
     else
-        rdx <- (r-robot.Width)*cos(robot.theta)
-        rdy <- (r-robot.Width)*sin(robot.theta) * -1
+        rdx <- (r-width)*cos(theta)
+        rdy <- (r-width)*sin(theta) * -1
         dtheta <- a/r
 
-    robot.R(X,Y) <- RotateAbout(R(X,Y) + (rdx,rdy),dtheta)
-    robot.theta <- robot.theta + dtheta
+    P_new <- RotateAbout(P, P + (rdx,rdy), dtheta)
+    theta_new <- theta + dtheta
+    
+    SetParam(robot, P, P_new)
+    SetParam(robot, theta, theta_new)
+    
+    return (P_new, theta_new)
+
+function RotateAbout(P, C, theta)
+    returns: a tuple (X',Y') obtained by 
+        rotating P about C by an angle theta
+
+    X <- P(X) - C(X)
+    Y <- P(Y) - C(Y)
+    
+    X' <- X*cos(theta) - Y*sin(theta)
+    Y' <- X*sin(theta) + Y*cos(theta)
+    
+    return (X',Y')
