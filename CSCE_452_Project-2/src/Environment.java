@@ -24,7 +24,6 @@ public class Environment extends Canvas{
         this.setSize(MIN_SIZE);
         timer= new Timer(delay,timerListener);
         timer.setInitialDelay(1000);//sets initial delay to 1 second
-        timer.start();//start firing timer event
     }
 
     public void addRobot(Point position){
@@ -32,13 +31,36 @@ public class Environment extends Canvas{
         robots.add(robot);
     }
 
-    //public void addLightSource
+    //TODO public void addLightSource
+
+    public void clearRobots(){
+        robots.clear();
+    }
+    public void clearLights(){
+        clearLights();
+    }
+    public void removeLastRobot(){
+        if(robots.size()>0){
+            robots.remove(robots.size()-1);
+        }
+    }
+    public void removeLastLight(){
+        if (lightSources.size()>0){
+            lightSources.remove(lightSources.size()-1);
+        }
+    }
 
     public void setTimerDelay(int d){
         delay=d;
         timer.setDelay(d);
     }
 
+    public void startMovement(){
+        timer.start();
+    }
+    public void stopMovement(){
+        timer.stop();
+    }
     @Override
     public void paint(Graphics g){
         for (LightSource lightSource : lightSources){//paint all lightsources
