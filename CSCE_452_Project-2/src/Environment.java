@@ -1,4 +1,7 @@
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
 /**
@@ -11,16 +14,29 @@ public class Environment extends Canvas{
     private final Vector<Robot> robots=  new Vector<Robot>();
     private final Vector<LightSource> lightSources= new Vector<LightSource>();
 
+    //private ActionListener timerListener; defined later as anonymous type
+    private Timer timer;
+    private int delay=100;//delay for timer
+
     Environment(){
         super();
         this.setMinimumSize(MIN_SIZE);
         this.setSize(MIN_SIZE);
-
+        timer= new Timer(delay,timerListener);
+        timer.setInitialDelay(1000);//sets initial delay to 1 second
+        timer.start();//start firing timer event
     }
 
     public void addRobot(Point position){
         Robot robot= new Robot(position,lightSources,ROBOT_SCALE);//last argument is the scale, scale=1 means size is DEFAULT_SIZE=(44,120)
         robots.add(robot);
+    }
+
+    //public void addLightSource
+
+    public void setTimerDelay(int d){
+        delay=d;
+        timer.setDelay(d);
     }
 
     @Override
@@ -32,5 +48,15 @@ public class Environment extends Canvas{
             robot.paint(g);
         }
     }
+
+    private final ActionListener timerListener= new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            for (Robot robot : robots){
+                //TODO update robot positions here
+            }
+        }
+    };
+
 
 }

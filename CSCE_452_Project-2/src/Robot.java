@@ -45,6 +45,7 @@ public class Robot extends JComponent{
             e.printStackTrace();
         }
     }
+
     public void setAlpha(double alpha){
         this.alpha=alpha;
     }
