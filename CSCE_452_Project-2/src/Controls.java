@@ -83,7 +83,7 @@ public class Controls extends JPanel implements ActionListener {
         //First row
 		lHelper.setPosition(0, 0);
         lHelper.setSize(1, 1);
-        lHelper.setWeights(0,0);//tells layout to make component larger when space is available
+        lHelper.setWeights(0,0);//tells layout to not make component larger when space is available
         this.add(createVehicle,lHelper.getConstraints());
 
         lHelper.setPosition(2, 0);
