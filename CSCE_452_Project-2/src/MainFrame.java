@@ -8,6 +8,8 @@ public class MainFrame extends JFrame implements Runnable {
     private JButton dummyControls;
     private Environment environment;
     private LayoutHelper lHelper;
+    private Controls control;
+
     MainFrame(String s){
         super(s);
         this.setMinimumSize(Environment.MIN_SIZE);//sets the main window to max screen size
@@ -24,17 +26,20 @@ public class MainFrame extends JFrame implements Runnable {
         environment.addRobot(new Point(44/2, 120*5/6));
         dummyControls = new JButton();
 
+        control = new Controls();
+
         lHelper.setFill(LayoutHelper.BOTH);
 
         lHelper.setPosition(0, 0);
-        lHelper.setSize(2, 1);
+        lHelper.setSize(2, 4);
         lHelper.setWeights(0, 0);//tells layout to not make component larger when space is available
         this.add(environment, lHelper.getConstraints());
 
         lHelper.setPosition(2, 0);
         lHelper.setSize(1, 1);
-        lHelper.setWeights(1,1);//tells layout to make component larger when space is available
-        this.add(dummyControls,lHelper.getConstraints());
+        lHelper.setWeights(0,0);//tells layout to make component larger when space is available
+        this.add(control);
+
     }
 
     public void run(){
@@ -42,6 +47,7 @@ public class MainFrame extends JFrame implements Runnable {
         //use GridLayout to place controls on right side of canvas later
         //then add to main frame
         mainF.setVisible(true);
+
     }
 
 }
