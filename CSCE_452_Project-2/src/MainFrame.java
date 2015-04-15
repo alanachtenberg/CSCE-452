@@ -29,9 +29,10 @@ public class MainFrame extends JFrame implements Runnable {
         control = new Controls();
 
         lHelper.setFill(LayoutHelper.BOTH);
+        lHelper.setAnchor(LayoutHelper.TOP);
 
         lHelper.setPosition(0, 0);
-        lHelper.setSize(2, 4);
+        lHelper.setSize(2, 1);
         lHelper.setWeights(1, 1);//tells layout to make component larger when space is available
         //1 is the scale relative to other component weights, for example
         //component A with weight 1 and a component B with wight 2, A would get half the available space that 2 would get
@@ -40,7 +41,8 @@ public class MainFrame extends JFrame implements Runnable {
         lHelper.setPosition(2, 0);
         lHelper.setSize(1, 1);
         lHelper.setWeights(1,1);//tells layout to make component larger when space is available
-        this.add(control);
+        lHelper.setFill(LayoutHelper.HORIZONTAL);
+        this.add(control,lHelper.getConstraints());
 
     }
 
