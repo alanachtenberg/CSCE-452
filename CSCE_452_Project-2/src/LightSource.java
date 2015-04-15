@@ -1,3 +1,4 @@
+import java.awt.Graphics;
 import java.awt.Point;
 
 
@@ -91,11 +92,22 @@ public class LightSource {
 		position.setLocation(x, y);
 	}
 	
+	/**
+	 * 
+	 * @param x - x location
+	 * @param y - y location
+	 * @return - intensity of lightsource from location (x,y)
+	 */
 	public double intensityToLightSource(int x, int y){
 		double xSquared = Math.pow(x, 2);
 		double ySquared = Math.pow(y, 2);
 		double distance = Math.sqrt(ySquared+xSquared);
 		return (intensity/distance);
+	}
+
+	public void paint(Graphics g) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
