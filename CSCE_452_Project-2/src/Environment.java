@@ -28,7 +28,10 @@ public class Environment extends Canvas{
     }
 
     public void addRobot(Point position){
-        Robot robot= new Robot(position,lightSources,ROBOT_SCALE);//last argument is the scale, scale=1 means size is DEFAULT_SIZE=(44,120)
+
+        // Default to I = K.
+        double[][] K = {{1,0},{0,1}};
+        Robot robot= new Robot(position,lightSources,ROBOT_SCALE,K);//last argument is the scale, scale=1 means size is DEFAULT_SIZE=(44,120)
         robots.add(robot);
         this.repaint();
     }
