@@ -123,32 +123,40 @@ public class Robot extends JComponent{
         double f = Math.max(w1,w2);
         double s = Math.min(w1,w2);
 
-        // Calculate turning radius.
-        double r = 0;
         if (f != s) {
-            r = axleWidth * (f/(f-s));
-        }
+            // Calculate turning radius.
+            double r = axleWidth * (f/(f-s));
+            double a = f*dt;
 
-        double a = f*dt;
+            double rdx, rdy, theta;
 
-        double rdx, rdy, theta;
+            if (f == w1) {
+                rdx = (r-axleWidth/2)*Math.cos(Math.toRadians(alpha)) * -1;
+                rdy = (r-axleWidth/2)*Math.sin(Math.toRadians(alpha));
+                theta = a/r * -1;
+            } else {
+                rdx = (r-axleWidth/2)*Math.cos(Math.toRadians(alpha));
+                rdy = (r-axleWidth/2)*Math.sin(Math.toRadians(alpha)) * -1;
+                theta = a/r;
+            }
 
-        if (f == w1) {
-            rdx = (r-axleWidth/2)*Math.cos(Math.toRadians(alpha)) * -1;
-            rdy = (r-axleWidth/2)*Math.sin(Math.toRadians(alpha));
-            theta = a/r * -1;
+            double x = centerAxle.getX();
+            double y = centerAxle.getY();
+            Point2D C = new Point2D.Double(x+rdx, y+rdy);
+
+            centerAxle = rotateAbout(centerAxle, C, theta);
+            alpha += theta;
         } else {
-            rdx = (r-axleWidth/2)*Math.cos(Math.toRadians(alpha));
-            rdy = (r-axleWidth/2)*Math.sin(Math.toRadians(alpha)) * -1;
-            theta = a/r;
+
+            double x = centerAxle.getX();
+            double y = centerAxle.getY();
+            double dx = f*dt*Math.cos(Math.toRadians(alpha));
+            double dy = f*dt*Math.sin(Math.toRadians(alpha));
+
+            centerAxle = new Point2D.Double(x+dx, y+dy);
         }
 
-        double x = centerAxle.getX();
-        double y = centerAxle.getY();
-        Point2D C = new Point2D.Double(x+rdx, y+rdy);
-
-        centerAxle = rotateAbout(centerAxle, C, theta);
-        alpha += theta;
+        this.repaint();
     }
 
     @Override //how to draw the robot
