@@ -39,7 +39,9 @@ public class Controls extends JPanel implements ActionListener {
     private double lx, ly, intensity;
     private LayoutHelper lHelper;
 
-    public Controls() {
+    private Environment environment;//make things happen
+    public Controls(Environment environment) {
+        this.environment=environment;
         createVehicle = new JButton("Create Vehicle");
         eraseVehicle = new JButton("Erase Vehicle");
 

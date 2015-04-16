@@ -26,7 +26,7 @@ public class MainFrame extends JFrame implements Runnable {
         environment.addRobot(new Point(44/2, 120*5/6));
         dummyControls = new JButton();
 
-        control = new Controls();
+        control = new Controls(environment);
 
         lHelper.setFill(LayoutHelper.BOTH);
         lHelper.setAnchor(LayoutHelper.TOP);
