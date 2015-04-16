@@ -1,6 +1,7 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.Graphics;
-import java.awt.Point;
+import java.awt.*;
+import java.io.IOException;
 
 
 /**
@@ -8,7 +9,9 @@ import java.awt.Point;
  *	Implements Light Source Objects
  */
 public class LightSource extends JComponent{
-
+    private static final String IMAGE_FILE = "light.png";
+    private Image lightImage;
+    private Dimension size;
 	/**
 	 * Each light source object has an associated x and y position 
 	 * and a value for intensity of the source
@@ -25,6 +28,15 @@ public class LightSource extends JComponent{
 	public LightSource(int x, int y) {
 		position= new Point(x, y);
 		setIntensity(100);
+        size= new Dimension(46,50);
+        try {
+            lightImage = ImageIO.read(getClass().getResource(IMAGE_FILE));
+            lightImage=lightImage.getScaledInstance(size.width,size.height,Image.SCALE_REPLICATE);
+        }
+        catch(IOException e){
+            System.out.println("ERROR: IMAGE FILE FAILED TO READ");
+            e.printStackTrace();
+        }
 	}
 
 	/**
@@ -109,7 +121,8 @@ public class LightSource extends JComponent{
     @Override
 	public void paint(Graphics g) {
 		// TODO Auto-generated method stub
-		g.fillOval(position.x,position.y,5,5);//testing
+		//g.fillOval(position.x,position.y,5,5);//testing
+        g.drawImage(lightImage,(int)(position.x-size.getWidth()/2),(int)(position.y-size.getHeight()/2),this);
 	}
 	
 }

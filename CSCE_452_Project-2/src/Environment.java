@@ -9,7 +9,7 @@ import java.util.Vector;
  */
 public class Environment extends Canvas{
     public static final Dimension MIN_SIZE= new Dimension(800,600);
-    private static final Double ROBOT_SCALE=1.0;
+    private static final Double ROBOT_SCALE=.9;
 
     private final Vector<Robot> robots=  new Vector<Robot>();
     private final Vector<LightSource> lightSources= new Vector<LightSource>();
