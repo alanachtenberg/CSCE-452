@@ -307,9 +307,7 @@ public class Controls extends JPanel implements ActionListener {
                 ly = Integer.parseInt(l_y_pos);
                 intensity = Integer.parseInt(l_intensity);
 
-                lightSource.setXLocation(lx);
-                lightSource.setYLocation(ly);
-                lightSource.setIntensity(intensity);
+                environment.addLight(new Point(lx,ly));
 
 
 

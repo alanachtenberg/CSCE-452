@@ -61,7 +61,7 @@ public class MainFrame extends JFrame implements Runnable {
         @Override
         public void mouseClicked(MouseEvent e) {
             Point p=e.getPoint();
-            controls.setLocation(p.x,p.y);
+            control.setLocation(p.x,p.y);
         }
 
         @Override
