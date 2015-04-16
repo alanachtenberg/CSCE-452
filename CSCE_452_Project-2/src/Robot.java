@@ -29,11 +29,11 @@ public class Robot extends JComponent{
     private Image robotImage;
 
 
-    public Robot( Point position, Vector<LightSource> sources, double scale, double[][] K)
+    public Robot( Point position, Vector<LightSource> sources, double scale, double[][] K, double angle)
     {//create a robot vehicle with dimension d
         super();
         lightSources=sources;
-        alpha=0;
+        alpha=angle;
         size=new Dimension((int)(DEFAULT_SIZE.getWidth()*scale),(int)(DEFAULT_SIZE.getHeight()*scale));
         leftSensor=new Point2D.Double( -size.getWidth()/4,-size.getHeight()*5/6);//the rear axel is 5/6ths the car length from the headlights/sensors
         rightSensor=new Point2D.Double(size.getWidth()/4,-size.getHeight()*5/6);
