@@ -113,7 +113,7 @@ public class Robot extends JComponent{
 
         Point2D lwheel = getAbsolutePosition(leftWheel);
         Point2D rwheel = getAbsolutePosition(rightWheel);
-        double axleWidth = lwheel.distance(rwheel);
+        double axleWidth = size.getWidth();
 
         double f = Math.max(w1,w2);
         double s = Math.min(w1,w2);
