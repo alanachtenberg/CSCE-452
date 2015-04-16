@@ -35,8 +35,8 @@ public class Controls extends JPanel implements ActionListener {
     private JButton createLight, eraseLight;
     private JButton run, pause, clear;
     private GridBagLayout grid;
-    private int vx, vy, vangle;
-    private double vsize;
+    private int vx, vy;
+    private double vsize, vangle;
     private int lx, ly;
     private double v_k11_double, v_k12_double, v_k21_double, v_k22_double;
     private LayoutHelper lHelper;
@@ -88,10 +88,10 @@ public class Controls extends JPanel implements ActionListener {
         startVehicleY = new JTextField("0");
         startVehicleAngle = new JTextField("0");
 
-        k11 = new JTextField("1");
+        k11 = new JTextField(".01");
         k12 = new JTextField("0");
         k21 = new JTextField("0");
-        k22 = new JTextField("1");
+        k22 = new JTextField(".01");
 
         createLightX = new JTextField("0");
         createLightY = new JTextField("0");
@@ -287,7 +287,7 @@ public class Controls extends JPanel implements ActionListener {
 
             vx = Integer.parseInt(v_x_pos);
             vy = Integer.parseInt(v_y_pos);
-            vangle = Integer.parseInt(v_angle_pos);
+            vangle = Double.parseDouble(v_angle_pos);
             v_k11_double = Double.parseDouble(v_k11);
             v_k12_double = Double.parseDouble(v_k12);
             v_k21_double = Double.parseDouble(v_k21);
@@ -297,9 +297,8 @@ public class Controls extends JPanel implements ActionListener {
             {
                 vehicle_size_tfield.setText("Invalid vehicle size");
             }
-            else
-            {
-                environment.addRobot(new Point(vx, vy),(double)(vsize/100),  v_k12_double,v_k11_double, v_k22_double,v_k21_double);
+            else{
+                environment.addRobot(new Point(vx, vy),(double)(vsize/100), vangle,  v_k12_double,v_k11_double, v_k22_double,v_k21_double);
             }
 
         }
