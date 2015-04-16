@@ -35,7 +35,8 @@ public class Controls extends JPanel implements ActionListener {
     private JButton createLight, eraseLight;
     private JButton run, pause, clear;
     private GridBagLayout grid;
-    private int vx, vy, vangle, vsize;
+    private int vx, vy, vangle;
+    private double vsize;
     private int lx, ly;
     private double v_k11_double, v_k12_double, v_k21_double, v_k22_double;
     private LayoutHelper lHelper;
@@ -298,7 +299,7 @@ public class Controls extends JPanel implements ActionListener {
             }
             else
             {
-                environment.addRobot(new Point(vx, vy), v_k11_double, v_k12_double, v_k21_double, v_k22_double);
+                environment.addRobot(new Point(vx, vy),(double)(vsize/100), v_k11_double, v_k12_double, v_k21_double, v_k22_double);
             }
 
         }
