@@ -19,3 +19,4 @@ log/
 target/
 *.class
 *.class
+*.class

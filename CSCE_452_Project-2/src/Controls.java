@@ -35,11 +35,15 @@ public class Controls extends JPanel implements ActionListener {
     private JButton createLight, eraseLight;
     private JButton run, pause;
     private GridBagLayout grid;
-    private double vx, vy, vangle;
-    private double lx, ly, intensity;
+    private int vx, vy, vangle;
+    private int lx, ly, intensity;
+    private int v_k11_int, v_k12_int, v_k21_int, v_k22_int;
     private LayoutHelper lHelper;
+    private LightSource lightSource;
+    private Environment environment;
 
     public Controls() {
+
         createVehicle = new JButton("Create Vehicle");
         eraseVehicle = new JButton("Erase Vehicle");
 
@@ -91,11 +95,11 @@ public class Controls extends JPanel implements ActionListener {
         createVehicle.addActionListener(this);
         eraseVehicle.addActionListener(this);
 
-        createLight.addActionListener(this);
-        eraseVehicle.addActionListener(this);
+        createLight.addActionListener(lightListener);
+        eraseVehicle.addActionListener(lightListener);
 
-        run.addActionListener(this);
-        pause.addActionListener(this);
+        run.addActionListener(startListener);
+        pause.addActionListener(startListener);
 
         grid = new GridBagLayout();
         this.setLayout(grid);
@@ -256,8 +260,93 @@ public class Controls extends JPanel implements ActionListener {
 
     }
     @Override
-    public void actionPerformed(ActionEvent arg0) {
+    public void actionPerformed(ActionEvent arg0) {     // Car related parameters
         // TODO Auto-generated method stub
+        Object src = arg0.getSource();
+        if(src == createVehicle)
+        {
+            String v_x_pos = startVehicleX.getText();
+            String v_y_pos = startVehicleY.getText();
+            String v_angle_pos = startVehicleAngle.getText();
+            String v_k11 = k11.getText();
+            String v_k12 = k12.getText();
+            String v_k21 = k21.getText();
+            String v_k22 = k22.getText();
+
+            vx = Integer.parseInt(v_x_pos);
+            vy = Integer.parseInt(v_y_pos);
+            vangle = Integer.parseInt(v_angle_pos);
+            v_k11_int = Integer.parseInt(v_k11);
+            v_k12_int = Integer.parseInt(v_k12);
+            v_k21_int = Integer.parseInt(v_k21);
+            v_k22_int = Integer.parseInt(v_k22);
+
+
+        }
+        else if(src == eraseVehicle)
+        {
+
+        }
 
     }
+
+    private ActionListener lightListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Object src = e.getSource();
+            if(src == createLight)
+            {
+                String l_x_pos = createLightX.getText();
+                String l_y_pos = createLightY.getText();
+                String l_intensity = lightIntensity.getText();
+
+                lx = Integer.parseInt(l_x_pos);
+                ly = Integer.parseInt(l_y_pos);
+                intensity = Integer.parseInt(l_intensity);
+
+                lightSource.setXLocation(lx);
+                lightSource.setYLocation(ly);
+                lightSource.setIntensity(intensity);
+
+
+
+                //System.out.println(lightSource.getXLocation() + ", " + lightSource.getYLocation() + ", "
+                        //+ lightSource.getIntensity());
+
+            }
+            else if(src == eraseLight)
+            {
+
+            }
+        }
+    };
+
+    private ActionListener startListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Object src = e.getSource();
+            if(src == run)
+            {
+
+            }
+            else if(src == pause)
+            {
+
+            }
+        }
+    };
+
+    public void setLocation(int x, int y) {
+        vx = x;
+        vy = y;
+        lx = x;
+        ly = x;
+        createLightX.setText(Integer.toString(x));
+        createLightY.setText(Integer.toString(y));
+        startVehicleX.setText(Integer.toString(x));
+        startVehicleY.setText(Integer.toString(y));
+
+    }
+
+
 }
