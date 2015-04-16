@@ -112,9 +112,7 @@ public class LightSource extends JComponent{
 	 * @return - intensity of lightsource from location (x,y)
 	 */
 	public double intensityToLightSource(int x, int y){
-		double xSquared = Math.pow(x, 2);
-		double ySquared = Math.pow(y, 2);
-		double distance = Math.sqrt(ySquared+xSquared);
+		double distance = position.distance(x, y);
 		return (intensity/distance);
 	}
 
