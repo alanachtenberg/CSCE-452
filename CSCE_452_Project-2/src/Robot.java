@@ -35,8 +35,8 @@ public class Robot extends JComponent{
         lightSources=sources;
         alpha=angle;
         size=new Dimension((int)(DEFAULT_SIZE.getWidth()*scale),(int)(DEFAULT_SIZE.getHeight()*scale));
-        leftSensor=new Point2D.Double( -size.getWidth()/2,-size.getHeight()*5/6);//the rear axel is 5/6ths the car length from the headlights/sensors
-        rightSensor=new Point2D.Double(size.getWidth()/2,-size.getHeight()*5/6);
+        leftSensor=new Point2D.Double( -size.getWidth(),-size.getHeight()*5/6);//the rear axel is 5/6ths the car length from the headlights/sensors
+        rightSensor=new Point2D.Double(size.getWidth(),-size.getHeight()*5/6);
         leftWheel=new Point2D.Double(-size.getWidth()/2,0);//relative to the axel the wheels are the same height
         rightWheel=new Point2D.Double(size.getWidth()/2,0);
         centerAxle= new Point2D.Double(position.getX(),position.getY());
