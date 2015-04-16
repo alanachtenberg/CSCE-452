@@ -138,7 +138,7 @@ public class Robot extends JComponent{
 
             double x = centerAxle.getX();
             double y = centerAxle.getY();
-            Point2D C = new Point2D.Double(x+rdx, y+rdy);
+            Point2D C = new Point2D.Double(x+rdx, y-rdy);
 
             centerAxle = rotateAbout(centerAxle, C, theta);
             alpha += Math.toDegrees(theta);
