@@ -35,8 +35,8 @@ public class Robot extends JComponent{
         lightSources=sources;
         alpha=0;
         size=new Dimension((int)(DEFAULT_SIZE.getWidth()*scale),(int)(DEFAULT_SIZE.getHeight()*scale));
-        leftSensor=new Point2D.Double( -size.getWidth()/4,-size.getHeight()*5/6);//the rear axel is 5/6ths the car length from the headlights/sensors
-        rightSensor=new Point2D.Double(size.getWidth()/4,-size.getHeight()*5/6);
+        leftSensor=new Point2D.Double( -size.getWidth()/2,-size.getHeight()*5/6);//the rear axel is 5/6ths the car length from the headlights/sensors
+        rightSensor=new Point2D.Double(size.getWidth()/2,-size.getHeight()*5/6);
         leftWheel=new Point2D.Double(-size.getWidth()/2,0);//relative to the axel the wheels are the same height
         rightWheel=new Point2D.Double(size.getWidth()/2,0);
         centerAxle= new Point2D.Double(position.getX(),position.getY());
@@ -122,7 +122,6 @@ public class Robot extends JComponent{
             // Calculate turning radius.
             double r = axleWidth * (f/(f-s));
             double a = f*dt;
-            System.out.println("Arc Length: " + a);
 
             double rdx, rdy, theta;
 
@@ -142,7 +141,6 @@ public class Robot extends JComponent{
 
             centerAxle = rotateAbout(centerAxle, C, theta);
             alpha += Math.toDegrees(theta);
-            System.out.println("Alpha: " + alpha);
         } else {
 
             double x = centerAxle.getX();
@@ -152,8 +150,6 @@ public class Robot extends JComponent{
 
             centerAxle = new Point2D.Double(x+dx, y+dy);
         }
-
-        System.out.println("Pos: " + centerAxle.getX() + " " + centerAxle.getY());
     }
 
     @Override //how to draw the robot

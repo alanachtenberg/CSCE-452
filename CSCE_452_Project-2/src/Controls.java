@@ -95,7 +95,7 @@ public class Controls extends JPanel implements ActionListener {
 
         createLightX = new JTextField("0");
         createLightY = new JTextField("0");
-        vehicle_size_tfield = new JTextField("1");
+        vehicle_size_tfield = new JTextField("100");
 
         createVehicle.addActionListener(this);
         eraseVehicle.addActionListener(this);
@@ -299,7 +299,7 @@ public class Controls extends JPanel implements ActionListener {
             }
             else
             {
-                environment.addRobot(new Point(vx, vy),(double)(vsize/100), v_k11_double, v_k12_double, v_k21_double, v_k22_double);
+                environment.addRobot(new Point(vx, vy),(double)(vsize/100),  v_k12_double,v_k11_double, v_k22_double,v_k21_double);
             }
 
         }
