@@ -37,7 +37,7 @@ public class Controls extends JPanel implements ActionListener {
     private GridBagLayout grid;
     private int vx, vy, vangle;
     private int lx, ly, intensity;
-    private int v_k11_int, v_k12_int, v_k21_int, v_k22_int;
+    private double v_k11_double, v_k12_double, v_k21_double, v_k22_double;
     private LayoutHelper lHelper;
     private LightSource lightSource;
     //private Environment environment;
@@ -279,10 +279,12 @@ public class Controls extends JPanel implements ActionListener {
             vx = Integer.parseInt(v_x_pos);
             vy = Integer.parseInt(v_y_pos);
             vangle = Integer.parseInt(v_angle_pos);
-            v_k11_int = Integer.parseInt(v_k11);
-            v_k12_int = Integer.parseInt(v_k12);
-            v_k21_int = Integer.parseInt(v_k21);
-            v_k22_int = Integer.parseInt(v_k22);
+            v_k11_double = Double.parseDouble(v_k11);
+            v_k12_double = Double.parseDouble(v_k12);
+            v_k21_double = Double.parseDouble(v_k21);
+            v_k22_double = Double.parseDouble(v_k22);
+
+            environment.addRobot(new Point(vx, vy), v_k11_double, v_k12_double, v_k21_double, v_k22_double);
 
 
         }
