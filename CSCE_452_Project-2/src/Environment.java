@@ -27,11 +27,11 @@ public class Environment extends Canvas{
         timer.setInitialDelay(1000);//sets initial delay to 1 second
     }
 
-    public void addRobot(Point position,double k11,double k12,double k21,double k22){
+    public void addRobot(Point position,double scale,double k11,double k12,double k21,double k22){
 
         // Default to I = K.
         double[][] K = {{k11,k12},{k21,k22}};
-        Robot robot= new Robot(position,lightSources,ROBOT_SCALE,K);//last argument is the scale, scale=1 means size is DEFAULT_SIZE=(44,120)
+        Robot robot= new Robot(position,lightSources,scale,K);//last argument is the scale, scale=1 means size is DEFAULT_SIZE=(44,120)
         robots.add(robot);
         this.repaint();
     }
@@ -44,18 +44,22 @@ public class Environment extends Canvas{
 
     public void clearRobots(){
         robots.clear();
+        repaint();
     }
     public void clearLights(){
-        clearLights();
+        lightSources.clear();
+        repaint();
     }
     public void removeLastRobot(){
         if(robots.size()>0){
             robots.remove(robots.size()-1);
+            repaint();
         }
     }
     public void removeLastLight(){
         if (lightSources.size()>0){
             lightSources.remove(lightSources.size()-1);
+            repaint();
         }
     }
 
