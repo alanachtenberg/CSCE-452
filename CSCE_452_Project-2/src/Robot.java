@@ -124,7 +124,11 @@ public class Robot extends JComponent{
         double s = Math.min(w1,w2);
 
         // Calculate turning radius.
-        double r = axleWidth * (f/(f-s));
+        double r = 0;
+        if (f != s) {
+            r = axleWidth * (f/(f-s));
+        }
+
         double a = f*dt;
 
         double rdx, rdy, theta;
