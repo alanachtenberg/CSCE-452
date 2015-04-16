@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.Graphics;
 import java.awt.Point;
 
@@ -6,7 +7,7 @@ import java.awt.Point;
  *	LightSource Class
  *	Implements Light Source Objects
  */
-public class LightSource {
+public class LightSource extends JComponent{
 
 	/**
 	 * Each light source object has an associated x and y position 
@@ -22,7 +23,7 @@ public class LightSource {
 	 * intensity set to 100 by default
 	 */
 	public LightSource(int x, int y) {
-		position.setLocation(x, y);
+		position= new Point(x, y);
 		setIntensity(100);
 	}
 
@@ -33,7 +34,7 @@ public class LightSource {
 	 * @param intense - set intensity of light source
 	 */
 	public LightSource(int x, int y, int intense) {
-		position.setLocation(x, y);
+		position= new Point(x, y);
 		setIntensity(intense);
 	}
 
@@ -105,9 +106,10 @@ public class LightSource {
 		return (intensity/distance);
 	}
 
+    @Override
 	public void paint(Graphics g) {
 		// TODO Auto-generated method stub
-		
+		g.fillOval(position.x,position.y,5,5);//testing
 	}
 	
 }

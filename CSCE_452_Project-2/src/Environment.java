@@ -31,7 +31,10 @@ public class Environment extends Canvas{
         robots.add(robot);
     }
 
-    //TODO public void addLightSource
+    public void addLight(Point position){
+        LightSource light= new LightSource(position.x,position.y);
+        lightSources.add(light);
+    }
 
     public void clearRobots(){
         robots.clear();
