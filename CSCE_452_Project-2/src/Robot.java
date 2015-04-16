@@ -141,7 +141,7 @@ public class Robot extends JComponent{
             Point2D C = new Point2D.Double(x+rdx, y+rdy);
 
             centerAxle = rotateAbout(centerAxle, C, theta);
-            alpha += theta;
+            alpha += Math.toDegrees(theta);
             System.out.println("Alpha: " + alpha);
         } else {
 
@@ -152,6 +152,8 @@ public class Robot extends JComponent{
 
             centerAxle = new Point2D.Double(x+dx, y+dy);
         }
+
+        System.out.println("Pos: " + centerAxle.getX() + " " + centerAxle.getY());
     }
 
     @Override //how to draw the robot
