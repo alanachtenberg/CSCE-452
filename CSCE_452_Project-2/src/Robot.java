@@ -29,13 +29,8 @@ public class Robot extends JComponent{
     private Image robotImage;
 
 
-    public Robot(
-        Point position,
-        Vector<LightSource> sources,
-        double scale,
-        double[][] K)
+    public Robot( Point position, Vector<LightSource> sources, double scale, double[][] K)
     {//create a robot vehicle with dimension d
-
         super();
         lightSources=sources;
         alpha=45;
