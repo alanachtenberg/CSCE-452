@@ -33,7 +33,7 @@ public class Robot extends JComponent{
     {//create a robot vehicle with dimension d
         super();
         lightSources=sources;
-        alpha=45;
+        alpha=0;
         size=new Dimension((int)(DEFAULT_SIZE.getWidth()*scale),(int)(DEFAULT_SIZE.getHeight()*scale));
         leftSensor=new Point2D.Double( -size.getWidth()/4,-size.getHeight()*5/6);//the rear axel is 5/6ths the car length from the headlights/sensors
         rightSensor=new Point2D.Double(size.getWidth()/4,-size.getHeight()*5/6);
@@ -152,7 +152,6 @@ public class Robot extends JComponent{
 
             centerAxle = new Point2D.Double(x+dx, y+dy);
         }
-
     }
 
     @Override //how to draw the robot

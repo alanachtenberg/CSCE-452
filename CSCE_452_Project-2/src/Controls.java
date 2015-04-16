@@ -29,14 +29,14 @@ public class Controls extends JPanel implements ActionListener {
     private JLabel k_11_label, k_12_label, k_21_label, k_22_label;
     private JTextField startVehicleX, startVehicleY, startVehicleAngle;
     private JLabel v_start_x_label, v_start_y_label, v_start_angle_label;
-    private JTextField createLightX, createLightY, lightIntensity;
-    private JLabel l_start_x_label, l_start_y_label, l_intensity_label;
+    private JTextField createLightX, createLightY, vehicle_size_tfield;
+    private JLabel l_start_x_label, l_start_y_label, vehicle_size_label;
     private JButton createVehicle, eraseVehicle;
     private JButton createLight, eraseLight;
-    private JButton run, pause;
+    private JButton run, pause, clear;
     private GridBagLayout grid;
-    private int vx, vy, vangle;
-    private int lx, ly, intensity;
+    private int vx, vy, vangle, vsize;
+    private int lx, ly;
     private double v_k11_double, v_k12_double, v_k21_double, v_k22_double;
     private LayoutHelper lHelper;
     private LightSource lightSource;
@@ -48,13 +48,14 @@ public class Controls extends JPanel implements ActionListener {
     public Controls(Environment environment) {
         this.environment=environment;
         createVehicle = new JButton("Create Vehicle");
-        eraseVehicle = new JButton("Erase Vehicle");
+        eraseVehicle = new JButton("Erase Last Vehicle");
 
         createLight = new JButton("Create Light");
-        eraseLight = new JButton("Erase Light");
+        eraseLight = new JButton("Erase Last Light");
 
         run = new JButton("Run");
         pause = new JButton("Pause");
+        clear = new JButton("Clear");
 
         k_11_label = new JLabel("K11");
         k_12_label = new JLabel("K12");
@@ -76,24 +77,24 @@ public class Controls extends JPanel implements ActionListener {
 
         l_start_x_label = new JLabel("Light X");
         l_start_y_label = new JLabel("Light Y");
-        l_intensity_label = new JLabel("Intensity");
+        vehicle_size_label = new JLabel("Vehicle Size");
 
         l_start_x_label.setHorizontalAlignment(JLabel.RIGHT);
         l_start_y_label.setHorizontalAlignment(JLabel.RIGHT);
-        l_intensity_label.setHorizontalAlignment(JLabel.RIGHT);
+        vehicle_size_label.setHorizontalAlignment(JLabel.RIGHT);
 
         startVehicleX = new JTextField("0");
         startVehicleY = new JTextField("0");
         startVehicleAngle = new JTextField("0");
 
-        k11 = new JTextField("0");
+        k11 = new JTextField("1");
         k12 = new JTextField("0");
         k21 = new JTextField("0");
-        k22 = new JTextField("0");
+        k22 = new JTextField("1");
 
         createLightX = new JTextField("0");
         createLightY = new JTextField("0");
-        lightIntensity = new JTextField("0");
+        vehicle_size_tfield = new JTextField("1");
 
         createVehicle.addActionListener(this);
         eraseVehicle.addActionListener(this);
@@ -195,40 +196,50 @@ public class Controls extends JPanel implements ActionListener {
 		lHelper.setWeights(1,0);
 		this.add(k22,lHelper.getConstraints());
 
+        lHelper.setPosition(3, 6);
+        lHelper.setSize(1,1);
+        lHelper.setWeights(0,0);
+        this.add(vehicle_size_label,lHelper.getConstraints());
+
+        lHelper.setPosition(4, 6);
+        lHelper.setSize(1,1);
+        lHelper.setWeights(1,0);
+        this.add(vehicle_size_tfield,lHelper.getConstraints());
+
         //Added line border to fill space and seperate controls
-        lHelper.setPosition(0,6);
+        lHelper.setPosition(0,7);
         lHelper.setSize(5,1);
         this.add(new Line(),lHelper.getConstraints());
 
 
 		//Seventh row
-        lHelper.setPosition(0, 7);
+        lHelper.setPosition(0, 8);
 		lHelper.setSize(2,1);
 		lHelper.setWeights(0,0);
         this.add(createLight,lHelper.getConstraints());
 
-        lHelper.setPosition(3,7);
+        lHelper.setPosition(3,8);
         lHelper.setSize(1, 1);
         this.add(l_start_x_label,lHelper.getConstraints());
 
-        lHelper.setPosition(4,7);
+        lHelper.setPosition(4,8);
         lHelper.setSize(1,1);
 		lHelper.setWeights(1,0);
         this.add(createLightX,lHelper.getConstraints());
 
 
         //Eighth row
-        lHelper.setPosition(0, 8);
+        lHelper.setPosition(0, 9);
         lHelper.setSize(2, 1);
 		lHelper.setWeights(0,0);
         this.add(eraseLight,lHelper.getConstraints());
 
-        lHelper.setPosition(3, 8);
+        lHelper.setPosition(3, 9);
         lHelper.setSize(1,1);
         lHelper.setWeights(0,0);
         this.add(l_start_y_label,lHelper.getConstraints());
 
-        lHelper.setPosition(4, 8);
+        lHelper.setPosition(4, 9);
         lHelper.setSize(1,1);
         lHelper.setWeights(1,0);
         this.add(createLightY,lHelper.getConstraints());
@@ -236,15 +247,7 @@ public class Controls extends JPanel implements ActionListener {
 
 
         //Ninth row
-        lHelper.setPosition(3, 9);
-        lHelper.setSize(1,1);
-		lHelper.setWeights(0,0);
-        this.add(l_intensity_label,lHelper.getConstraints());
 
-        lHelper.setPosition(4, 9);
-		lHelper.setSize(1,1);
-		lHelper.setWeights(1,0);
-        this.add(lightIntensity,lHelper.getConstraints());
 
         //Added line border to fill space and seperate controls
         lHelper.setPosition(0,10);
@@ -261,10 +264,13 @@ public class Controls extends JPanel implements ActionListener {
         lHelper.setSize(2,1);
 		this.add(pause,lHelper.getConstraints());
 
+        lHelper.setPosition(4,11);
+        lHelper.setSize(2,1);
+        this.add(clear,lHelper.getConstraints());
+
     }
     @Override
     public void actionPerformed(ActionEvent arg0) {     // Car related parameters
-        // TODO Auto-generated method stub
         Object src = arg0.getSource();
         if(src == createVehicle)
         {
@@ -275,6 +281,7 @@ public class Controls extends JPanel implements ActionListener {
             String v_k12 = k12.getText();
             String v_k21 = k21.getText();
             String v_k22 = k22.getText();
+            String v_size = vehicle_size_tfield.getText();
 
             vx = Integer.parseInt(v_x_pos);
             vy = Integer.parseInt(v_y_pos);
@@ -283,14 +290,20 @@ public class Controls extends JPanel implements ActionListener {
             v_k12_double = Double.parseDouble(v_k12);
             v_k21_double = Double.parseDouble(v_k21);
             v_k22_double = Double.parseDouble(v_k22);
-
-            environment.addRobot(new Point(vx, vy), v_k11_double, v_k12_double, v_k21_double, v_k22_double);
-
+            vsize = Integer.parseInt(v_size);
+            if(vsize <= 0 || vsize > 100)
+            {
+                vehicle_size_tfield.setText("Invalid vehicle size");
+            }
+            else
+            {
+                environment.addRobot(new Point(vx, vy), v_k11_double, v_k12_double, v_k21_double, v_k22_double);
+            }
 
         }
         else if(src == eraseVehicle)
         {
-
+            environment.removeLastRobot();
         }
 
     }
@@ -303,23 +316,15 @@ public class Controls extends JPanel implements ActionListener {
             {
                 String l_x_pos = createLightX.getText();
                 String l_y_pos = createLightY.getText();
-                String l_intensity = lightIntensity.getText();
 
                 lx = Integer.parseInt(l_x_pos);
                 ly = Integer.parseInt(l_y_pos);
-                intensity = Integer.parseInt(l_intensity);
 
                 environment.addLight(new Point(lx,ly));
-
-
-
-                //System.out.println(lightSource.getXLocation() + ", " + lightSource.getYLocation() + ", "
-                        //+ lightSource.getIntensity());
-
             }
             else if(src == eraseLight)
             {
-
+                environment.removeLastLight();
             }
         }
     };
@@ -330,11 +335,16 @@ public class Controls extends JPanel implements ActionListener {
             Object src = e.getSource();
             if(src == run)
             {
-
+                environment.startMovement();
             }
             else if(src == pause)
             {
-
+                environment.stopMovement();
+            }
+            else if(src == clear)
+            {
+                environment.clearLights();
+                environment.clearRobots();
             }
         }
     };
