@@ -104,7 +104,7 @@ public class Robot extends JComponent{
         double xp = x*Math.cos(theta) - y*Math.sin(theta);
         double yp = x*Math.sin(theta) + y*Math.cos(theta);
 
-        return new Point2D.Double(xp, yp);
+        return new Point2D.Double(xp+c.getX(), yp+c.getY());
     }
 
     public void updatePosition(double dt) {
@@ -122,6 +122,7 @@ public class Robot extends JComponent{
             // Calculate turning radius.
             double r = axleWidth * (f/(f-s));
             double a = f*dt;
+            System.out.println("Arc Length: " + a);
 
             double rdx, rdy, theta;
 
@@ -141,6 +142,7 @@ public class Robot extends JComponent{
 
             centerAxle = rotateAbout(centerAxle, C, theta);
             alpha += theta;
+            System.out.println("Alpha: " + alpha);
         } else {
 
             double x = centerAxle.getX();
@@ -151,7 +153,6 @@ public class Robot extends JComponent{
             centerAxle = new Point2D.Double(x+dx, y+dy);
         }
 
-        this.repaint();
     }
 
     @Override //how to draw the robot
