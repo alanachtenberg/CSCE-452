@@ -104,6 +104,7 @@ public class Controls extends JPanel implements ActionListener {
 
         run.addActionListener(startListener);
         pause.addActionListener(startListener);
+        clear.addActionListener(startListener);
 
         grid = new GridBagLayout();
         this.setLayout(grid);

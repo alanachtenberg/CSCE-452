@@ -85,6 +85,7 @@ public class Environment extends Canvas{
         public void actionPerformed(ActionEvent e) {
             for (Robot robot : robots){
                 robot.updatePosition(delay);
+                repaint();
             }
         }
     };
