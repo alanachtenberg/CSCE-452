@@ -271,7 +271,6 @@ public class Controls extends JPanel implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent arg0) {     // Car related parameters
-        // TODO Auto-generated method stub
         Object src = arg0.getSource();
         if(src == createVehicle)
         {
@@ -292,7 +291,7 @@ public class Controls extends JPanel implements ActionListener {
             v_k21_double = Double.parseDouble(v_k21);
             v_k22_double = Double.parseDouble(v_k22);
             vsize = Integer.parseInt(v_size);
-            if(vsize < 1 || vsize > 100)
+            if(vsize <= 0 || vsize > 100)
             {
                 vehicle_size_tfield.setText("Invalid vehicle size");
             }
@@ -318,18 +317,10 @@ public class Controls extends JPanel implements ActionListener {
                 String l_x_pos = createLightX.getText();
                 String l_y_pos = createLightY.getText();
 
-
                 lx = Integer.parseInt(l_x_pos);
                 ly = Integer.parseInt(l_y_pos);
 
-
                 environment.addLight(new Point(lx,ly));
-
-
-
-                //System.out.println(lightSource.getXLocation() + ", " + lightSource.getYLocation() + ", "
-                        //+ lightSource.getIntensity());
-
             }
             else if(src == eraseLight)
             {
@@ -344,11 +335,11 @@ public class Controls extends JPanel implements ActionListener {
             Object src = e.getSource();
             if(src == run)
             {
-
+                environment.startMovement();
             }
             else if(src == pause)
             {
-
+                environment.stopMovement();
             }
             else if(src == clear)
             {
