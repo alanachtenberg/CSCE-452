@@ -48,6 +48,15 @@ public class LightSource extends JComponent{
 	public LightSource(int x, int y, int intense) {
 		position= new Point(x, y);
 		setIntensity(intense);
+		size= new Dimension(46,50);
+        try {
+            lightImage = ImageIO.read(getClass().getResource(IMAGE_FILE));
+            lightImage=lightImage.getScaledInstance(size.width,size.height,Image.SCALE_REPLICATE);
+        }
+        catch(IOException e){
+            System.out.println("ERROR: IMAGE FILE FAILED TO READ");
+            e.printStackTrace();
+        }
 	}
 
 	/**
