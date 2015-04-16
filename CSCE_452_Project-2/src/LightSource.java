@@ -1,13 +1,17 @@
-import java.awt.Graphics;
-import java.awt.Point;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
 
 
 /**
  *	LightSource Class
  *	Implements Light Source Objects
  */
-public class LightSource {
-
+public class LightSource extends JComponent{
+    private static final String IMAGE_FILE = "light.png";
+    private Image lightImage;
+    private Dimension size;
 	/**
 	 * Each light source object has an associated x and y position 
 	 * and a value for intensity of the source
@@ -22,8 +26,17 @@ public class LightSource {
 	 * intensity set to 100 by default
 	 */
 	public LightSource(int x, int y) {
-		position.setLocation(x, y);
+		position= new Point(x, y);
 		setIntensity(100);
+        size= new Dimension(46,50);
+        try {
+            lightImage = ImageIO.read(getClass().getResource(IMAGE_FILE));
+            lightImage=lightImage.getScaledInstance(size.width,size.height,Image.SCALE_REPLICATE);
+        }
+        catch(IOException e){
+            System.out.println("ERROR: IMAGE FILE FAILED TO READ");
+            e.printStackTrace();
+        }
 	}
 
 	/**
@@ -33,8 +46,17 @@ public class LightSource {
 	 * @param intense - set intensity of light source
 	 */
 	public LightSource(int x, int y, int intense) {
-		position.setLocation(x, y);
+		position= new Point(x, y);
 		setIntensity(intense);
+		size= new Dimension(46,50);
+        try {
+            lightImage = ImageIO.read(getClass().getResource(IMAGE_FILE));
+            lightImage=lightImage.getScaledInstance(size.width,size.height,Image.SCALE_REPLICATE);
+        }
+        catch(IOException e){
+            System.out.println("ERROR: IMAGE FILE FAILED TO READ");
+            e.printStackTrace();
+        }
 	}
 
 	/**
@@ -99,15 +121,15 @@ public class LightSource {
 	 * @return - intensity of lightsource from location (x,y)
 	 */
 	public double intensityToLightSource(int x, int y){
-		double xSquared = Math.pow(x, 2);
-		double ySquared = Math.pow(y, 2);
-		double distance = Math.sqrt(ySquared+xSquared);
+		double distance = position.distance(x, y);
 		return (intensity/distance);
 	}
 
+    @Override
 	public void paint(Graphics g) {
 		// TODO Auto-generated method stub
-		
+		//g.fillOval(position.x,position.y,5,5);//testing
+        g.drawImage(lightImage,(int)(position.x-size.getWidth()/2),(int)(position.y-size.getHeight()/2),this);
 	}
 	
 }

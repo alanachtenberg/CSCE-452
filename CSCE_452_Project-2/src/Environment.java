@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.Vector;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Vector;
  */
 public class Environment extends Canvas{
     public static final Dimension MIN_SIZE= new Dimension(800,600);
-    private static final Double ROBOT_SCALE=1.0;
+    private static final Double ROBOT_SCALE=.9;
 
     private final Vector<Robot> robots=  new Vector<Robot>();
     private final Vector<LightSource> lightSources= new Vector<LightSource>();
@@ -31,7 +32,10 @@ public class Environment extends Canvas{
         robots.add(robot);
     }
 
-    //TODO public void addLightSource
+    public void addLight(Point position){
+        LightSource light= new LightSource(position.x,position.y);
+        lightSources.add(light);
+    }
 
     public void clearRobots(){
         robots.clear();

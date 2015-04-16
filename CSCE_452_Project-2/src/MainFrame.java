@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  * Created by Alan on 4/13/2015.
@@ -24,10 +26,11 @@ public class MainFrame extends JFrame implements Runnable {
         environment = new Environment();
         environment.startMovement();
         environment.addRobot(new Point(44/2, 120*5/6));
+        environment.addLight(new Point(100,100));
         dummyControls = new JButton();
 
-        control = new Controls();
-
+        control = new Controls(environment);
+        environment.addMouseListener(environmentListener);//add listener after controls are constructed, since listener access controls
         lHelper.setFill(LayoutHelper.BOTH);
         lHelper.setAnchor(LayoutHelper.TOP);
 
@@ -53,5 +56,33 @@ public class MainFrame extends JFrame implements Runnable {
         mainF.setVisible(true);
 
     }
+
+    private MouseListener environmentListener= new MouseListener() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            Point p=e.getPoint();
+            controls.setLocation(p.x,p.y);
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            //dont need these methods but they must be defined
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
+    };
 
 }

@@ -40,10 +40,13 @@ public class Controls extends JPanel implements ActionListener {
     private int v_k11_int, v_k12_int, v_k21_int, v_k22_int;
     private LayoutHelper lHelper;
     private LightSource lightSource;
-    private Environment environment;
+    //private Environment environment;
 
-    public Controls() {
 
+
+    private Environment environment;//make things happen
+    public Controls(Environment environment) {
+        this.environment=environment;
         createVehicle = new JButton("Create Vehicle");
         eraseVehicle = new JButton("Erase Vehicle");
 
