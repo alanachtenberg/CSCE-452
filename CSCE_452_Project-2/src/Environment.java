@@ -17,7 +17,7 @@ public class Environment extends Canvas{
 
     //private ActionListener timerListener; defined later as anonymous type
     private Timer timer;
-    private int delay=20;//delay for timer
+    private int delay=40;//delay for timer
 
     Environment(){
         super();
@@ -87,9 +87,12 @@ public class Environment extends Canvas{
     private final ActionListener timerListener= new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            for (Robot robot : robots){
-                robot.updatePosition(1);
-                repaint();
+            if (lightSources.size()>0) {
+                for (Robot robot : robots) {
+                    robot.updatePosition(.1);
+                }
+                if (robots.size()>0)
+                    repaint();
             }
         }
     };

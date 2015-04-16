@@ -88,10 +88,10 @@ public class Controls extends JPanel implements ActionListener {
         startVehicleY = new JTextField("0");
         startVehicleAngle = new JTextField("0");
 
-        k11 = new JTextField(".01");
-        k12 = new JTextField("0");
-        k21 = new JTextField("0");
-        k22 = new JTextField(".01");
+        k11 = new JTextField("0");
+        k12 = new JTextField("100");
+        k21 = new JTextField("100");
+        k22 = new JTextField("0");
 
         createLightX = new JTextField("0");
         createLightY = new JTextField("0");
