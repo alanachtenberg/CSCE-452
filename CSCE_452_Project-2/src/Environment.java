@@ -84,7 +84,7 @@ public class Environment extends Canvas{
         @Override
         public void actionPerformed(ActionEvent e) {
             for (Robot robot : robots){
-                //TODO update robot positions here
+                robot.updatePosition(delay);
             }
         }
     };
