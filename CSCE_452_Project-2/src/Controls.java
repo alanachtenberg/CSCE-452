@@ -100,7 +100,7 @@ public class Controls extends JPanel implements ActionListener {
         eraseVehicle.addActionListener(this);
 
         createLight.addActionListener(lightListener);
-        eraseVehicle.addActionListener(lightListener);
+        eraseLight.addActionListener(lightListener);
 
         run.addActionListener(startListener);
         pause.addActionListener(startListener);
@@ -334,6 +334,7 @@ public class Controls extends JPanel implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             Object src = e.getSource();
+
             if(src == run)
             {
                 environment.startMovement();

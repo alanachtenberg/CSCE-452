@@ -44,18 +44,22 @@ public class Environment extends Canvas{
 
     public void clearRobots(){
         robots.clear();
+        repaint();
     }
     public void clearLights(){
-        clearLights();
+        lightSources.clear();
+        repaint();
     }
     public void removeLastRobot(){
         if(robots.size()>0){
             robots.remove(robots.size()-1);
+            repaint();
         }
     }
     public void removeLastLight(){
         if (lightSources.size()>0){
             lightSources.remove(lightSources.size()-1);
+            repaint();
         }
     }
 
