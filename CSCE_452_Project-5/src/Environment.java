@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -7,15 +8,16 @@ import java.util.Vector;
  */
 public class Environment extends Canvas{
     public static final Dimension MIN_SIZE= new Dimension(500,500);
-    private Vector<Obstacle> obstacles;
+    private ArrayList<Obstacle> obstacles;
     private Point start;
     private Point end;
+    public static PathFinder pathFinder= new PathFinder();
     Environment(){
         super();
         start=new Point();
         end= new Point();
         this.setMinimumSize(MIN_SIZE);
-        obstacles=new Vector<Obstacle>(3);
+        obstacles=new ArrayList<Obstacle>(3);
     }
 
     public Boolean setPath(Point start_,Point end_){
@@ -47,10 +49,18 @@ public class Environment extends Canvas{
     public void removeLastObstacle(){
         if (obstacles.size()>0){
             obstacles.remove(obstacles.size()-1);
+            this.repaint();
         }
     }
     public void clearObstacles(){
         obstacles.clear();
+        this.repaint();
+    }
+
+    public void cellDivide(){
+        pathFinder.setObstacles(obstacles);//
+        pathFinder.cellDivide();
+        this.repaint();
     }
 
     @Override
@@ -58,10 +68,20 @@ public class Environment extends Canvas{
         Graphics2D g2D=(Graphics2D)g;
         g2D.setStroke(new BasicStroke(4));
         //draw Border
-        g2D.draw(new Rectangle(this.getX()+2,this.getY()+2,this.getWidth()-5,this.getHeight()-5));
+       // g2D.draw(new Rectangle(this.getX()+2,this.getY()+2,this.getWidth()-5,this.getHeight()-5));
         //draw obstacles
         for (Obstacle obstacle : obstacles){
             g2D.draw(obstacle);
+        }
+        g2D.setColor(Color.cyan);
+        for (Cell cell : PathFinder.cells){
+            g2D.fill(cell);
+        }
+        g2D.setColor(Color.BLACK);
+        for (Cell cell : PathFinder.cells){
+            g2D.draw(cell);
+            Point center=cell.getCenter();
+            g2D.drawString(cell.getID(),center.x-cell.width/3,center.y);
         }
     }
 }

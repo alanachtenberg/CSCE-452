@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.Comparator;
 
 /**
  * Created by Alan on 4/21/2015.
@@ -15,8 +16,18 @@ public class Obstacle extends Rectangle2D.Double{
     }
 
 
-    public Point2D getPosition(){
-        return new Point2D.Double(this.getX(),this.getY());
+    public Point getTopLeftVertex(){
+        return new Point((int)this.getX(),(int)this.getY());
+    }
+
+    public Point getTopRightVertex(){
+        return new Point((int)(this.getX()+this.getWidth()),(int)this.getY());
+    }
+    public Point getBottomLeftVertex(){
+        return new Point((int)(this.getX()),(int)(this.getY()+this.getHeight()));
+    }
+    public Point getBottomRightVertex(){
+        return new Point((int)(this.getX()+this.getWidth()),(int)(this.getY()+this.getHeight()));
     }
 
     public Dimension getSize(){
@@ -29,9 +40,27 @@ public class Obstacle extends Rectangle2D.Double{
     }
     //checks for collision with other obstacle
     public Boolean checkForCollision(Obstacle o){
-        Point2D pos=o.getPosition();
+        Point pos=o.getTopLeftVertex();
         Dimension size=o.getSize();
-        return this.contains(pos.getX(),pos.getY(),size.getWidth(),size.getHeight());
+        return this.intersects(pos.getX(),pos.getY(),size.getWidth(),size.getHeight());
+    }
+    public Boolean checkForCollision(Rectangle r){
+        Point pos=new Point((int)r.getX(),(int)r.getY());
+        Dimension size=r.getSize();
+        return this.intersects(pos.getX(),pos.getY(),size.getWidth(),size.getHeight());
+    }
+    public Boolean isInXRange(Point p){
+        if (this.getX()<=p.getX() && p.getX()<(this.getX()+this.getWidth())){
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean isInYRange(Point p){
+        if (this.getY()<=p.getY() && p.getY()<(this.getY()+this.getHeight())){
+            return true;
+        }
+        return false;
     }
 
 }
