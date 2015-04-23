@@ -34,6 +34,9 @@ public class Controls extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 //TODO do something with environment
                 environment.addObstacle(new Obstacle(new Point(50,50),new Dimension(100,100)));//simple test
+                environment.addObstacle(new Obstacle(new Point(80,200 ), new Dimension(100, 40)));
+                environment.addObstacle(new Obstacle(new Point(30,300), new Dimension(200,100)));
+                environment.cellDivide();
             }
         };
     }
