@@ -12,12 +12,14 @@ public class Environment extends Canvas{
     private Point start;
     private Point end;
     public static PathFinder pathFinder= new PathFinder();
+    private ArrayList<ArrayList<Point>> paths;
     Environment(){
         super();
         start=new Point();
         end= new Point();
         this.setMinimumSize(MIN_SIZE);
         obstacles=new ArrayList<Obstacle>(3);
+        paths = new ArrayList<ArrayList<Point>>();
     }
 
     public Boolean setPath(Point start_,Point end_){
@@ -28,6 +30,7 @@ public class Environment extends Canvas{
         }
         this.start = start_;
         this.end = end_;
+        pathFinder.setPath(this.start, this.end);
         return true;
     }
     //returns true on success
@@ -62,6 +65,15 @@ public class Environment extends Canvas{
         pathFinder.cellDivide();
         this.repaint();
     }
+    
+    /**
+     * Calls getPaths() function in path finder.
+     */
+    public void getPaths()
+    {
+    	 paths = pathFinder.getPaths();
+    	 this.repaint();
+    }
 
     @Override
     public void paint(Graphics g){
@@ -82,6 +94,21 @@ public class Environment extends Canvas{
             g2D.draw(cell);
             Point center=cell.getCenter();
             g2D.drawString(cell.getID(),center.x-cell.width/3,center.y);
+        }
+        //start and end points move somewhere else
+        g2D.setColor(Color.WHITE);
+        g2D.fillOval(start.x, start.y, 5, 5);
+        g2D.fillOval(end.x,end.y,5,5);
+        //draw paths
+        g2D.setColor(Color.MAGENTA);
+        for(ArrayList<Point> path: paths)
+        {
+        	if(path==paths.get(0))
+        	for(int x = 0; x<(path.size()-1); x++)
+        	{
+        		g2D.drawLine((int)path.get(x).getX(), (int)path.get(x).getY(), (int)path.get(x+1).getX(), (int)path.get(x+1).getY());
+        		
+        	}
         }
     }
 }

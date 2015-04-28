@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Stack;
 
 /**
  * Created by Alan on 4/22/2015.
@@ -10,18 +11,45 @@ import java.util.Comparator;
 public class PathFinder {
     private static final int TOTAL_WIDTH=500;
     private static final int TOTAL_HEIGHT=500;
+    private static Point start;
+    private static Point end;
+    private static Cell startCell;
+    private static Cell endCell;
     private static ArrayList<Obstacle> obstacles;
     private static ArrayList<Point> vLines;//only care about x coordinate
     private static ArrayList<Point> hLines;//only care about y coordinate
     public static ArrayList<Cell> cells;
-
+    private static ArrayList<ArrayList<Point>> paths;
+    private static Stack<Cell> currentPath;
+    
     public PathFinder(){
         obstacles=new ArrayList<Obstacle>();
         cells=new ArrayList<Cell>();
+        start=new Point();
+        end=new Point();
+        paths = new ArrayList<ArrayList<Point>>();
+        currentPath = new Stack<Cell>();
     }
 
     public void setObstacles(ArrayList<Obstacle> obstacles_){
         obstacles=obstacles_;
+    }
+    
+    public void setPath(Point start_, Point end_)
+    {
+    	start = start_;
+    	end = end_;
+    	for(Cell node: cells)
+    	{
+    		if(node.isInXRange(start) && node.isInYRange(start))
+    		{
+    			setStartCell(node);
+    		}
+    		else if(node.isInXRange(end) && node.isInYRange(end))
+    		{
+    			setEndCell(node);
+    		}
+    	}
     }
 
     private void generateLines(){
@@ -93,11 +121,118 @@ public class PathFinder {
         createAdjacenyList();
     }
 
+    
     //use graph search with cells to find path
-    public ArrayList<Point> findPath(){
-
-
-
-        return null;//if path not found
+    public static void findPaths(Cell node){
+    	//the goal cell will never have visited flag set to true b/c
+    	//we want to get there in as many paths possible.
+    	if(!(node.getID().equals(endCell.getID())))
+    	{
+    		//mark node as visited
+    		node.setVisited(true);
+	    	//add current cell to stack
+	    	currentPath.push(node);
+	    	//go thru each child and visit
+	    	//until goal (endCell) is reached and/or all cells have been visited
+    		boolean nodeB4Goal = false;
+	    	for(Cell temp: node.getNeighbors())
+	    	{
+	    		if(temp.getID().equals(endCell.getID()))
+	    		{
+	    			nodeB4Goal = true;
+	    		}
+	    		if(!temp.isVisited())
+	    		{
+	    			findPaths(temp);
+	    		}
+	    	}
+	    	if(nodeB4Goal)
+    		{
+    			node.setVisited(false);
+    		}
+	    	currentPath.pop();
+    	}
+    	else	//if current cell is the goal cell...
+    	{
+    		//store stack of nodes as a possible path and return
+    		currentPath.push(node);
+    		addPath(currentPath);
+    		currentPath.pop();
+    	}
+    	
+    	//This is not efficient but we need a kill/end case
+    	//Let's see if this works and then try to improve it
+    	int visitedCounter = 0;
+    	for(Cell temp: cells)
+    	{
+    		if(temp.isVisited())
+    		{
+    			visitedCounter++;
+    		}
+    	}
+    	if(visitedCounter == (cells.size()-1))//size()-1 b/c goal node will never have visited flag set to true
+    	{
+    		return;
+    	}
     }
+
+	/**
+	 * @return the startCell
+	 */
+	public static Cell getStartCell() {
+		return startCell;
+	}
+
+	/**
+	 * @param startCell the startCell to set
+	 */
+	public static void setStartCell(Cell startCell) {
+		PathFinder.startCell = startCell;
+	}
+
+	/**
+	 * @return the endCell
+	 */
+	public static Cell getEndCell() {
+		return endCell;
+	}
+
+	/**
+	 * @param endCell the endCell to set
+	 */
+	public static void setEndCell(Cell endCell) {
+		PathFinder.endCell = endCell;
+	}
+
+	/**
+	 * @return the paths after generating the paths
+	 */
+	public ArrayList<ArrayList<Point>> getPaths() {
+		findPaths(startCell);
+		return paths;
+	}
+
+	/**
+	 * 
+	 * @param cellPath add this to ArrayList<ArrayList<Point>> paths
+	 */
+	public static void addPath(Stack<Cell> cellPath) {
+		ArrayList<Point> newPath = new ArrayList<Point>();
+		for(Cell node: cellPath)
+		{
+			if(node.getID().equals(startCell.getID()))
+			{
+				newPath.add(start);
+			}
+			else if(node.getID().equals(endCell.getID()))
+			{
+				newPath.add(end);
+			}
+			else
+			{
+				newPath.add(node.getCenter());
+			}
+		}
+		paths.add(newPath);
+	}
 }

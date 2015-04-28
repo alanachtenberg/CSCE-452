@@ -12,6 +12,8 @@ public class Cell extends Rectangle{
 
     private ArrayList<Cell> neighbors;
     private int id;
+    private boolean visited;//used for search
+    
    /*
     *@param loc location of cell, top left corner
     * @param size size of cell
@@ -21,6 +23,7 @@ public class Cell extends Rectangle{
         neighbors=new ArrayList<Cell>(4);
         id=count;
         ++count;
+        visited = false;
     }
 
     public static void resetCount(){
@@ -29,7 +32,7 @@ public class Cell extends Rectangle{
     public void addNeighbor(Cell c){
         if(this.contains(c.getLeft())){
             neighbors.add(c);
-            return;//end execution of loop, so we do not do uneeded calculations
+            return;//end execution of loop, so we do not do unneeded calculations
         }else if (this.contains(c.getRight())){
             neighbors.add(c);
             return;
@@ -41,6 +44,10 @@ public class Cell extends Rectangle{
             neighbors.add(c);
             return;
         }
+    }
+    public ArrayList<Cell> getNeighbors()
+    {
+    	return neighbors;
     }
     public String getID(){
         return Integer.toString(id);
@@ -62,5 +69,27 @@ public class Cell extends Rectangle{
     }
     public Point getBottom(){
         return  new Point(this.x+1,this.y+this.height+1);
+    }
+
+	public boolean isVisited() {
+		return visited;
+	}
+
+	public void setVisited(boolean visited_) {
+		this.visited = visited_;
+	}
+	
+	public Boolean isInXRange(Point p){
+        if (this.getX()<=p.getX() && p.getX()<(this.getX()+this.getWidth())){
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean isInYRange(Point p){
+        if (this.getY()<=p.getY() && p.getY()<(this.getY()+this.getHeight())){
+            return true;
+        }
+        return false;
     }
 }
