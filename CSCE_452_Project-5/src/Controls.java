@@ -245,7 +245,19 @@ public class Controls extends JPanel {
                 //TODO do something with environment
                 Object src = e.getSource();
                 if(src == FindPath) {
-
+                	//*********FIX THIS*****************
+                	Point start = new Point(10, 10);
+                    Point end = new Point(470, 470);
+                    //**********************************
+                	if(environment.setPath(start, end))
+                    {
+                    	//start and end points have already been set in setPath().
+                    }
+                    else
+                    {
+                    	System.out.println("ERROR: Invalid start or end point. Check locations for collisions");
+                    }
+                	environment.getPaths();
                 }
             }
         };
