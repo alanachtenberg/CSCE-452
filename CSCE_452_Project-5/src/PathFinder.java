@@ -72,6 +72,10 @@ public class PathFinder {
 
     //divides up space into cells
     public void cellDivide(){
+        cells.clear();//insure cells is empty
+        if (obstacles.size()==0){//no cells to add
+            return;
+        }
         generateLines();//determine vertices to use when creating cells, is sorted left to right
         Cell.resetCount();//reset counter for creating cell id's
         int lastVertical=0;//x pos
