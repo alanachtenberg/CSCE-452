@@ -15,8 +15,8 @@ public class Environment extends Canvas{
     private ArrayList<ArrayList<Point>> paths;
     Environment(){
         super();
-        start=new Point();
-        end= new Point();
+        start=new Point(-1,-1);//default just off the screen, upper left
+        end= new Point(501,501);//default just off the screen, bottom right
         this.setMinimumSize(MIN_SIZE);
         obstacles=new ArrayList<Obstacle>(3);
         paths = new ArrayList<ArrayList<Point>>();
@@ -46,17 +46,20 @@ public class Environment extends Canvas{
         }
 
         obstacles.add(o);
+        cellDivide();//obstacle was added, do new division
         this.repaint();
         return true;
     }
     public void removeLastObstacle(){
         if (obstacles.size()>0){
             obstacles.remove(obstacles.size()-1);
+            cellDivide();//obstacles was changed, do new division
             this.repaint();
         }
     }
     public void clearObstacles(){
         obstacles.clear();
+        cellDivide();//removes old cells
         this.repaint();
     }
 
@@ -76,11 +79,12 @@ public class Environment extends Canvas{
     }
 
     @Override
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
+        g.clearRect(0,0,500,500);//clear canvas
         Graphics2D g2D=(Graphics2D)g;
         g2D.setStroke(new BasicStroke(4));
         //draw Border
-       // g2D.draw(new Rectangle(this.getX()+2,this.getY()+2,this.getWidth()-5,this.getHeight()-5));
+        //g2D.draw(new Rectangle(this.getX()+2,this.getY()+2,this.getWidth()-5,this.getHeight()-5));
         //draw obstacles
         for (Obstacle obstacle : obstacles){
             g2D.draw(obstacle);
