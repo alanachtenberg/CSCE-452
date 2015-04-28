@@ -183,6 +183,7 @@ public class Controls extends JPanel {
         private JTextField end_x_field, end_y_field;
         private JLabel start_x_label, start_y_label;
         private JLabel end_x_label, end_y_label;
+        private int start_x_int, start_y_int, end_x_int, end_y_int;
 
         PathControl(){
             this.setLayout(new GridBagLayout());
@@ -245,6 +246,17 @@ public class Controls extends JPanel {
                 //TODO do something with environment
                 Object src = e.getSource();
                 if(src == FindPath) {
+                    String start_x = start_x_field.getText();
+                    String start_y = start_y_field.getText();
+                    String end_x = end_x_field.getText();
+                    String end_y = end_y_field.getText();
+
+                    start_x_int = Integer.parseInt(start_x);
+                    start_y_int = Integer.parseInt(start_y);
+                    end_x_int = Integer.parseInt(end_x);
+                    end_y_int = Integer.parseInt(end_y);
+
+                    environment.setPath(new Point(start_x_int,start_y_int),new Point(end_x_int,end_y_int));
 
                 }
             }
