@@ -87,8 +87,13 @@ public class PathFinder {
             }
             lastHorizontal=(int)hLine.getY();//shift starting y position of next cell
         }
-        if (lastHorizontal<500){//add bottom boundary cell
-            addCell(0,lastHorizontal,500,500-hLines.get(hLines.size()-1).y);
+        if (lastHorizontal<500){//add bottom boundary cells
+            lastVertical=0;
+            for (Point vLine: vLines) {
+                addCell(lastVertical, lastHorizontal, vLine.x-lastVertical, 500 - hLines.get(hLines.size() - 1).y);
+                lastVertical=vLine.x;
+            }
+            addCell(lastVertical,lastHorizontal,500-lastVertical,500-hLines.get(hLines.size()-1).y);//add bottom right cell
         }
         createAdjacenyList();
     }

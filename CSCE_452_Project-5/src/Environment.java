@@ -14,8 +14,8 @@ public class Environment extends Canvas{
     public static PathFinder pathFinder= new PathFinder();
     Environment(){
         super();
-        start=new Point();
-        end= new Point();
+        start=new Point(-1,-1);//default just off the screen, upper left
+        end= new Point(501,501);//default just off the screen, bottom right
         this.setMinimumSize(MIN_SIZE);
         obstacles=new ArrayList<Obstacle>(3);
     }
@@ -43,6 +43,7 @@ public class Environment extends Canvas{
         }
 
         obstacles.add(o);
+        cellDivide();//new obstacle was added so lets run cell division
         this.repaint();
         return true;
     }
