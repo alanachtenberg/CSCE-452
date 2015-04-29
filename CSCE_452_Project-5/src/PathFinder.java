@@ -217,6 +217,7 @@ public class PathFinder {
 	 * @return the paths after generating the paths
 	 */
 	public ArrayList<ArrayList<Point>> getPaths() {
+        paths=new ArrayList<ArrayList<Point>>();//create new paths array so that we are not pushing onto the old one
 		for(Cell node: cells)
 		{
 			node.setVisited(false);

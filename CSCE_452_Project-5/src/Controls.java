@@ -246,7 +246,6 @@ public class Controls extends JPanel {
                 //TODO do something with environment
                 Object src = e.getSource();
                 if(src == FindPath) {
-//<<<<<<< HEAD
                     String start_x = start_x_field.getText();
                     String start_y = start_y_field.getText();
                     String end_x = end_x_field.getText();
@@ -259,7 +258,6 @@ public class Controls extends JPanel {
 
                     //environment.setPath(new Point(start_x_int,start_y_int),new Point(end_x_int,end_y_int));
 
-//=======
                 	Point start = new Point(start_x_int, start_y_int);
                     Point end = new Point(end_x_int, end_y_int);
                 	if(environment.setPath(start, end))
@@ -272,7 +270,6 @@ public class Controls extends JPanel {
                     	System.out.println("ERROR: Invalid start or end point. Check locations for collisions");
                     }
 
-//>>>>>>> origin/master
                 }
             }
         };

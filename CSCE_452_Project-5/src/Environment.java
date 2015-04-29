@@ -74,6 +74,7 @@ public class Environment extends Canvas{
      */
     public void getPaths()
     {
+         pathFinder.setPath(start,end);
     	 paths = pathFinder.getPaths();
     	 this.repaint();
     }
@@ -111,7 +112,6 @@ public class Environment extends Canvas{
         	for(int x = 0; x<(path.size()-1); x++)
         	{
         		g2D.drawLine((int)path.get(x).getX(), (int)path.get(x).getY(), (int)path.get(x+1).getX(), (int)path.get(x+1).getY());
-        		
         	}
         }
     }
