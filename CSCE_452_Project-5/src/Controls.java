@@ -260,10 +260,8 @@ public class Controls extends JPanel {
                     //environment.setPath(new Point(start_x_int,start_y_int),new Point(end_x_int,end_y_int));
 
 //=======
-                	//*********FIX THIS*****************
                 	Point start = new Point(start_x_int, start_y_int);
                     Point end = new Point(end_x_int, end_y_int);
-                    //**********************************
                 	if(environment.setPath(start, end))
                     {
                     	//start and end points have already been set in setPath().

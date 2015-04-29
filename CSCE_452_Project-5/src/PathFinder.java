@@ -217,6 +217,10 @@ public class PathFinder {
 	 * @return the paths after generating the paths
 	 */
 	public ArrayList<ArrayList<Point>> getPaths() {
+		for(Cell node: cells)
+		{
+			node.setVisited(false);
+		}
 		findPaths(startCell);
 		return paths;
 	}
