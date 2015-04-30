@@ -374,8 +374,11 @@ public class Controls extends JPanel {
 
     public void setFieldXY(int x, int y) {
 
-        this.obstacle.setBlockXY(x,y);
-        this.path.setStartEndXY(x,y);
+        int x_adj = (x > 500 ? 500 : x);
+        int y_adj = (y > 500 ? 500 : y);
+
+        this.obstacle.setBlockXY(x_adj,y_adj);
+        this.path.setStartEndXY(x_adj,y_adj);
 
     }
 }
