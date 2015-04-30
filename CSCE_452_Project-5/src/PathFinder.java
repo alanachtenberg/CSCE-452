@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Stack;
 
@@ -61,13 +62,13 @@ public class PathFinder {
             vLines.add(obstacle.getTopLeftVertex());//for left line of rectangle
             vLines.add(obstacle.getBottomRightVertex());//for right line of rectangle
         }
-        hLines.sort(new Comparator<Point>() {//sort from top to bottom
+        Collections.sort(hLines, new Comparator<Point>() {//sort from top to bottom
             @Override
             public int compare(Point o1, Point o2) {
                 return (int)(o1.getY()-o2.getY());
             }
         });
-        vLines.sort(new Comparator<Point>() {//sort from left to right
+        Collections.sort(vLines, new Comparator<Point>() {//sort from left to right
             @Override
             public int compare(Point o1, Point o2) {
                 return (int)(o1.getX()-o2.getX());

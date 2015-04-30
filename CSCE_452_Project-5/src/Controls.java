@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
  */
 public class Controls extends JPanel {
     private static LayoutHelper lHelper= new LayoutHelper();
+    private static ObstacleControl obstacle;
+    //private static PathControl path;
 
     //modifies obstacles
     private class ObstacleControl extends JPanel{
@@ -72,6 +74,18 @@ public class Controls extends JPanel {
             //Remove_Block3.addActionListener(buttonListener);
             clear_all.addActionListener(buttonListener);
         }
+
+        public void setBlockXY(int x, int y) {
+
+            Block1_x_field.setText(""+x);
+            Block1_y_field.setText(""+y);
+            Block2_x_field.setText(""+x);
+            Block2_y_field.setText(""+y);
+            Block3_x_field.setText(""+x);
+            Block3_y_field.setText(""+y);
+
+        }
+
         private void layoutComponents(){
             lHelper.setFill(LayoutHelper.HORIZONTAL);
             lHelper.setAnchor(LayoutHelper.CENTER);
@@ -293,7 +307,14 @@ public class Controls extends JPanel {
         super();
         this.environment=environment;
         this.setLayout(new GridLayout(2,1));//vertical 2 cell layout
-        this.add(new ObstacleControl());
+        obstacle = new ObstacleControl();
+        this.add(obstacle);
         this.add(new PathControl());
+    }
+
+    public void setFieldXY(int x, int y) {
+
+        this.obstacle.setBlockXY(x,y);
+
     }
 }
