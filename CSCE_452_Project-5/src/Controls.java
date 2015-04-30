@@ -159,7 +159,9 @@ public class Controls extends JPanel {
                     block1_x_int = Integer.parseInt(block1_x);
                     block1_y_int = Integer.parseInt(block1_y);
 
-                    environment.addObstacle(new Obstacle(new Point(block1_x_int,block1_y_int),new Dimension(200,200)));
+                    if (block1_x_int + 200 <= 500 && block1_y_int + 200 <= 500) {
+                        environment.addObstacle(new Obstacle(new Point(block1_x_int,block1_y_int),new Dimension(200,200)));
+                    }
                 }
                 else if(src == Block2) {
                     String block2_x = Block2_x_field.getText();
@@ -168,7 +170,9 @@ public class Controls extends JPanel {
                     block2_x_int = Integer.parseInt(block2_x);
                     block2_y_int = Integer.parseInt(block2_y);
 
-                    environment.addObstacle(new Obstacle(new Point(block2_x_int,block2_y_int),new Dimension(150,150)));
+                    if (block2_x_int + 150 <= 500 && block2_y_int <= 500) {
+                        environment.addObstacle(new Obstacle(new Point(block2_x_int,block2_y_int),new Dimension(150,150)));
+                    }
                 }
                 else if(src == Block3) {
                     String block3_x = Block3_x_field.getText();
@@ -177,7 +181,9 @@ public class Controls extends JPanel {
                     block3_x_int = Integer.parseInt(block3_x);
                     block3_y_int = Integer.parseInt(block3_y);
 
-                    environment.addObstacle(new Obstacle(new Point(block3_x_int,block3_y_int),new Dimension(100,100)));
+                    if (block3_x_int + 100 <= 500 && block3_y_int + 100 <= 500) {
+                        environment.addObstacle(new Obstacle(new Point(block3_x_int,block3_y_int),new Dimension(100,100)));
+                    }
                 }
                 else if(src == Remove_Block) {
                     environment.removeLastObstacle();
