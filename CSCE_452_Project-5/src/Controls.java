@@ -32,9 +32,9 @@ public class Controls extends JPanel {
         }
 
         private void initComponents(){
-            Block1=new JButton("Add Block 1");
-            Block2=new JButton("Add Block 2");
-            Block3=new JButton("Add Block 3");
+            Block1=new JButton("Add Block 1 (200x200)");
+            Block2=new JButton("Add Block 2 (150x150)");
+            Block3=new JButton("Add Block 3 (100x100)");
 
             //Remove_Block1=new JButton("Remove Block 1");
             //Remove_Block2=new JButton("Remove Block 2");
@@ -179,6 +179,7 @@ public class Controls extends JPanel {
     //interaction with path display
     private class PathControl extends JPanel{
         private JButton FindPath;
+        private JButton toggleCells;
         private JTextField start_x_field, start_y_field;
         private JTextField end_x_field, end_y_field;
         private JLabel start_x_label, start_y_label;
@@ -194,6 +195,9 @@ public class Controls extends JPanel {
         private void initComponents(){
             FindPath=new JButton("Find Path");
             FindPath.addActionListener(buttonListener);
+
+            toggleCells= new JButton("Toggle Cell View");
+            toggleCells.addActionListener(buttonListener);
 
             start_x_field=new JTextField("0");
             start_y_field=new JTextField("0");
@@ -220,24 +224,29 @@ public class Controls extends JPanel {
             lHelper.setPosition(1, 0);
             this.add(start_x_field, lHelper.getConstraints());
             lHelper.setPosition(2, 0);
-            this.add(end_x_label, lHelper.getConstraints());
+            this.add(start_y_label, lHelper.getConstraints());
             lHelper.setPosition(3, 0);
-            this.add(end_x_field,lHelper.getConstraints());
+            this.add(start_y_field,lHelper.getConstraints());
 
             //Row 1
             lHelper.setPosition(0,1);
-            this.add(start_y_label, lHelper.getConstraints());
+            this.add(end_x_label, lHelper.getConstraints());
             lHelper.setPosition(1, 1);
-            this.add(start_y_field, lHelper.getConstraints());
+            this.add(end_x_field, lHelper.getConstraints());
             lHelper.setPosition(2, 1);
             this.add(end_y_label, lHelper.getConstraints());
             lHelper.setPosition(3, 1);
             this.add(end_y_field,lHelper.getConstraints());
 
             //Row 2
-            lHelper.setPosition(1,2);
+            lHelper.setPosition(0,2);
             lHelper.setSize(2,1);
             this.add(FindPath,lHelper.getConstraints());
+
+            lHelper.setPosition(2,2);
+            lHelper.setSize(2,1);
+            this.add(toggleCells,lHelper.getConstraints());
+
         }
 
         private ActionListener buttonListener= new ActionListener() {
@@ -270,6 +279,9 @@ public class Controls extends JPanel {
                     	System.out.println("ERROR: Invalid start or end point. Check locations for collisions");
                     }
 
+                }
+                if (src==toggleCells){
+                    environment.toggleCells();
                 }
             }
         };

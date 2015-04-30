@@ -11,6 +11,7 @@ public class Environment extends Canvas{
     private Point end;
     public static PathFinder pathFinder= new PathFinder();
     private ArrayList<ArrayList<Point>> paths;
+    private Boolean drawCells;
     Environment(){
         super();
         start=new Point(-1,-1);//default just off the screen, upper left
@@ -18,6 +19,7 @@ public class Environment extends Canvas{
         this.setMinimumSize(MIN_SIZE);
         obstacles=new ArrayList<Obstacle>(3);
         paths = new ArrayList<ArrayList<Point>>();
+        drawCells=false;
     }
 
     public Boolean setPath(Point start_,Point end_){
@@ -76,6 +78,15 @@ public class Environment extends Canvas{
     	 paths = pathFinder.getPaths();
     	 this.repaint();
     }
+    public void toggleCells(){
+        if (drawCells==false){
+            drawCells=true;
+        }
+        else {
+            drawCells = false;
+        }
+        repaint();
+    }
 
     @Override
     public void paint(Graphics g) {
@@ -88,15 +99,17 @@ public class Environment extends Canvas{
         for (Obstacle obstacle : obstacles){
             g2D.draw(obstacle);
         }
-        g2D.setColor(Color.cyan);
-        for (Cell cell : PathFinder.cells){
-            g2D.fill(cell);
-        }
-        g2D.setColor(Color.BLACK);
-        for (Cell cell : PathFinder.cells){
-            g2D.draw(cell);
-            Point center=cell.getCenter();
-            g2D.drawString(cell.getID(),center.x-cell.width/3,center.y);
+        if (drawCells) {
+            g2D.setColor(Color.cyan);
+            for (Cell cell : PathFinder.cells) {
+                g2D.fill(cell);
+            }
+            g2D.setColor(Color.BLACK);
+            for (Cell cell : PathFinder.cells) {
+                g2D.draw(cell);
+                Point center = cell.getCenter();
+                g2D.drawString(cell.getID(), center.x - cell.width / 3, center.y);
+            }
         }
         //start and end points move somewhere else
         g2D.setColor(Color.WHITE);
