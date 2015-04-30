@@ -15,7 +15,7 @@ public class Environment extends Canvas{
     Environment(){
         super();
         start=new Point(-1,-1);//default just off the screen, upper left
-        end= new Point(501,501);//default just off the screen, bottom right
+        end= new Point(-1,-1);//default just off the screen allows placement of blocks in upper corner
         this.setMinimumSize(MIN_SIZE);
         obstacles=new ArrayList<Obstacle>(3);
         paths = new ArrayList<ArrayList<Point>>();
@@ -117,13 +117,17 @@ public class Environment extends Canvas{
         g2D.fillOval(end.x,end.y,5,5);
         //draw paths
         g2D.setColor(Color.MAGENTA);
-        for(ArrayList<Point> path: paths)
-        {
-        	if(path==paths.get(0))
-        	for(int x = 0; x<(path.size()-1); x++)
-        	{
-        		g2D.drawLine((int)path.get(x).getX(), (int)path.get(x).getY(), (int)path.get(x+1).getX(), (int)path.get(x+1).getY());
-        	}
+        if (obstacles.size()==0){
+                g2D.drawLine((int)start.getX(), (int)start.getY(), (int)end.getX(), (int)end.getY());
         }
+        else
+            for(ArrayList<Point> path: paths)
+            {
+                if(path==paths.get(0))
+                for(int x = 0; x<(path.size()-1); x++)
+                {
+                    g2D.drawLine((int)path.get(x).getX(), (int)path.get(x).getY(), (int)path.get(x+1).getX(), (int)path.get(x+1).getY());
+                }
+            }
     }
 }

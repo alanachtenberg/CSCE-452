@@ -132,6 +132,8 @@ public class PathFinder {
     
     //use graph search with cells to find path
     public static void findPaths(Cell node){
+        if (cells==null||cells.size()==0)
+            return;
     	//the goal cell will never have visited flag set to true b/c
     	//we want to get there in as many paths possible.
     	if(!(node.getID().equals(endCell.getID())))
