@@ -1,7 +1,5 @@
 import java.awt.*;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.Vector;
 
 /**
  * Created by Alan on 4/21/2015.
