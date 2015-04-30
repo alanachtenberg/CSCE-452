@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 public class Controls extends JPanel {
     private static LayoutHelper lHelper= new LayoutHelper();
     private static ObstacleControl obstacle;
-    //private static PathControl path;
+    private static PathControl path;
 
     //modifies obstacles
     private class ObstacleControl extends JPanel{
@@ -193,12 +193,13 @@ public class Controls extends JPanel {
     //interaction with path display
     private class PathControl extends JPanel{
         private JButton FindPath;
-        private JButton toggleCells;
+        private JButton toggleCells, fixStart, fixEnd;
         private JTextField start_x_field, start_y_field;
         private JTextField end_x_field, end_y_field;
         private JLabel start_x_label, start_y_label;
         private JLabel end_x_label, end_y_label;
         private int start_x_int, start_y_int, end_x_int, end_y_int;
+        private boolean startFixed, endFixed;
 
         PathControl(){
             this.setLayout(new GridBagLayout());
@@ -211,7 +212,11 @@ public class Controls extends JPanel {
             FindPath.addActionListener(buttonListener);
 
             toggleCells= new JButton("Toggle Cell View");
+            fixStart = new JButton("Fix Start Location");
+            fixEnd = new JButton("Fix End Location");
             toggleCells.addActionListener(buttonListener);
+            fixStart.addActionListener(buttonListener);
+            fixEnd.addActionListener(buttonListener);
 
             start_x_field=new JTextField("0");
             start_y_field=new JTextField("0");
@@ -227,6 +232,9 @@ public class Controls extends JPanel {
             start_y_label.setHorizontalAlignment(JLabel.RIGHT);
             end_x_label.setHorizontalAlignment(JLabel.RIGHT);
             end_y_label.setHorizontalAlignment(JLabel.RIGHT);
+
+            startFixed = false;
+            endFixed = false;
         }
         private void layoutComponents(){
             lHelper.setFill(LayoutHelper.HORIZONTAL);
@@ -255,11 +263,34 @@ public class Controls extends JPanel {
             //Row 2
             lHelper.setPosition(0,2);
             lHelper.setSize(2,1);
-            this.add(FindPath,lHelper.getConstraints());
+            this.add(fixStart,lHelper.getConstraints());
 
             lHelper.setPosition(2,2);
             lHelper.setSize(2,1);
+            this.add(fixEnd,lHelper.getConstraints());
+
+            //Row 3
+            lHelper.setPosition(0,3);
+            lHelper.setSize(2,1);
+            this.add(FindPath,lHelper.getConstraints());
+
+            lHelper.setPosition(2,3);
+            lHelper.setSize(2,1);
             this.add(toggleCells,lHelper.getConstraints());
+
+        }
+
+        public void setStartEndXY(int x, int y) {
+
+            if (!startFixed) {
+                start_x_field.setText(""+x);
+                start_y_field.setText(""+y);
+            }
+
+            if (!endFixed) {
+                end_x_field.setText(""+x);
+                end_y_field.setText(""+y);
+            }
 
         }
 
@@ -297,6 +328,34 @@ public class Controls extends JPanel {
                 if (src==toggleCells){
                     environment.toggleCells();
                 }
+
+                if (src == fixStart) {
+                    if (startFixed) {
+                        fixStart.setText("Fix Start Location");
+                        start_x_field.setEditable(true);
+                        start_y_field.setEditable(true);
+                        startFixed = false;
+                    } else {
+                        fixStart.setText("Unfix Start Location");
+                        start_x_field.setEditable(false);
+                        start_y_field.setEditable(false);
+                        startFixed = true;
+                    }
+                }
+
+                if (src == fixEnd) {
+                    if (endFixed) {
+                        fixEnd.setText("Fix End Location");
+                        end_x_field.setEditable(true);
+                        end_y_field.setEditable(true);
+                        endFixed = false;
+                    } else {
+                        fixEnd.setText("Unfix End Location");
+                        end_x_field.setEditable(false);
+                        end_y_field.setEditable(false);
+                        endFixed = true;
+                    }
+                }
             }
         };
     }
@@ -308,13 +367,15 @@ public class Controls extends JPanel {
         this.environment=environment;
         this.setLayout(new GridLayout(2,1));//vertical 2 cell layout
         obstacle = new ObstacleControl();
+        path = new PathControl();
         this.add(obstacle);
-        this.add(new PathControl());
+        this.add(path);
     }
 
     public void setFieldXY(int x, int y) {
 
         this.obstacle.setBlockXY(x,y);
+        this.path.setStartEndXY(x,y);
 
     }
 }
